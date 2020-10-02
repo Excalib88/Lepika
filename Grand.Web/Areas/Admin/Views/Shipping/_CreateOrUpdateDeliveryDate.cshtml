@@ -1,0 +1,60 @@
+﻿@model DeliveryDateModel
+@{
+    Html.AddScriptParts("~/scripts/farbtastic.js", excludeFromBundle: true);
+    Html.AddCssFileParts("~/content/farbtastic/farbtastic.css", excludeFromBundle: true);
+}
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+<vc:admin-widget widget-zone="delivery_date_details_top" additional-data="Model" />
+<input id="active-menu-item" type="hidden" value="/Admin/Shipping/DeliveryDates" />
+@(await Html.LocalizedEditor<DeliveryDateModel, DeliveryDateLocalizedModel>("delivery-date-localized",
+@<div class="form-horizontal">
+        <div class="form-body">
+            <div class="form-group">
+                <admin-label asp-for="@Model.Locales[item].Name" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="@Model.Locales[item].Name" />
+                    <span asp-validation-for="@Model.Locales[item].Name"></span>
+                </div>
+            </div>
+            <input asp-for="@Model.Locales[item].LanguageId" type="hidden" />
+        </div>
+</div>
+,
+@<div class="form-horizontal">
+        <div class="form-body">
+            <div class="form-group">
+                <admin-label asp-for="Name" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+        </div>
+</div>
+))
+<div class="form-horizontal">
+    <div class="form-body">
+        <div class="form-group">
+            <admin-label asp-for="ColorSquaresRgb" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="ColorSquaresRgb" />
+                <div id="color-picker"></div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#color-picker').farbtastic('#@Html.FieldIdFor(model => model.ColorSquaresRgb)');
+                    });
+                </script>
+                <span asp-validation-for="ColorSquaresRgb"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="DisplayOrder" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="DisplayOrder" />
+                <span asp-validation-for="DisplayOrder"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<vc:admin-widget widget-zone="delivery_date_details_bottom" additional-data="Model" />

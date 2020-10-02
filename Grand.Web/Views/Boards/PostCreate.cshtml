@@ -1,0 +1,10 @@
+﻿@model EditForumPostModel
+@using Grand.Web.Models.Boards;
+@{   
+    Layout = "_ColumnsOne";
+
+    Html.AddTitleParts(T("Forum.PageTitle.PostNew").Text);
+}
+<form asp-route="PostCreate" method="post">
+    <partial name="_CreateUpdatePost" model="Model" />
+</form>
