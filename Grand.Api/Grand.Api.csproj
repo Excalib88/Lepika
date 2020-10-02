@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Copyright>Copyright © UNIT-SOFT Sp. z o.o.</Copyright>
+    <Company>UNIT-SOFT Sp. z o.o.</Company>
+    <Authors>UNIT-SOFT Sp. z o.o.</Authors>
+    <PackageProjectUrl>https://grandnode.com/</PackageProjectUrl>
+    <TieredCompilation>true</TieredCompilation>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Grand.Core\Grand.Core.csproj" />
+    <ProjectReference Include="..\Grand.Framework\Grand.Framework.csproj" />
+    <ProjectReference Include="..\Grand.Services\Grand.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.4.0" />
+  </ItemGroup>  
+
+</Project>
