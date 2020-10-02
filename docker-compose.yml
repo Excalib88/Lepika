@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  grand.web:
+    image: ${DOCKER_REGISTRY-}grandweb
+    build:
+      context: .
+      dockerfile: Grand.Web/Dockerfile
