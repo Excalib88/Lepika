@@ -57,37 +57,25 @@
     @if(true)
     {
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/карнизы-279">КАРНИЗЫ</a>
+            <a class="nav-link" href="/каталог">КАТАЛОГ</a>
         </li>
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/молдинги-226">МОЛДИНГИ</a>
+            <a class="nav-link" href="@Url.ActionLink("All", "Manufacturer")">БРЕНДЫ</a>
         </li>
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/подоконники-10">ПОДОКОННИКИ</a>
+            <a class="nav-link" href="@Url.ActionLink("Get", "Fitting")">ПРИМЕРКА</a>
         </li>
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/розетки-67">РОЗЕТКИ</a>
+            <a class="nav-link" href="@Url.ActionLink("Get", "Delivery")">ДОСТАВКА</a>
         </li>
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/колонны-75">КОЛОННЫ</a>
+            <a class="nav-link" href="/колонны-75">МОНТАЖ</a>
         </li>
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/камины-4">КАМИНЫ</a>
+            <a class="nav-link" href="/news">НОВОСТИ</a>
         </li>
         <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/светильники">СВЕТИЛЬНИКИ</a>
-        </li>
-        <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/плинтусы-12">ПЛИНТУСЫ</a>
-        </li>
-        <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/балки-88">БАЛКИ</a>
-        </li>
-        <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/наличник-2">НАЛИЧНИКИ</a>
-        </li>
-        <li class="nav-item solo-link-item">
-            <a class="nav-link" href="/клей-4">КЛЕЙ</a>
+            <a class="nav-link" href="/светильники">КОНТАКТЫ</a>
         </li>
     }
     @if (Model.DisplaySearchMenu | Model.DisplayNewProductsMenu | Model.DisplayCustomerMenu | Model.DisplayBlogMenu | Model.DisplayForumsMenu | Model.DisplayContactUsMenu)
