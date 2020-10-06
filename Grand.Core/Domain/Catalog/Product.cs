@@ -492,7 +492,11 @@ namespace Grand.Core.Domain.Catalog
         /// Gets or sets auction start price
         /// </summary>
         public decimal StartPrice { get; set; }
-
+        
+        public bool Podsvetka { get; set; }
+        
+        public int QuantityInBox { get; set; }
+        
         /// <summary>
         /// Gets or sets current highest bid
         /// </summary>
@@ -560,6 +564,13 @@ namespace Grand.Core.Domain.Catalog
         /// Gets or sets the flag
         /// </summary>
         public string Flag { get; set; }
+        
+        /// <summary>
+        /// Гибкий ли продукт
+        /// </summary>
+        public bool Gibkiy{get;set;}
+        
+        public int Obrazci { get; set; }
 
         /// <summary>
         /// Gets or sets the collection of locales

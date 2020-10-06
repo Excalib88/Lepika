@@ -100,8 +100,15 @@ namespace Grand.Web.Services
                     DisplayStockAvailability = true,
                     DisplayStockQuantity = true,
                     VisibleIndividually = true,
+                    OrderMinimumQuantity = 1,
+                    OrderMaximumQuantity = 10000,
                     ProductTemplateId = "5f74eb009eb59f4650635823",
-                    StockQuantity = Convert.ToInt32(stock ?? 0)
+                    StockQuantity = Convert.ToInt32(stock ?? 0),
+                    Gibkiy = sourceProduct.Gibkiy == 1,
+                    Obrazci = sourceProduct.Obrazci,
+                    MarkAsNew = sourceProduct.IsNew,
+                    Podsvetka = sourceProduct.Podsvetka == 1,
+                    QuantityInBox = sourceProduct.QuantityInBox
                 };
                 
                 var queryCategory = from c in _categoryRepository.Table 
@@ -121,7 +128,8 @@ namespace Grand.Web.Services
                             HideOnCatalog = false,
                             ShowOnSearchBox = false,
                             ShowOnHomePage = true,
-                            CategoryTemplateId = "5f66096097db2b2da47b957d"
+                            CategoryTemplateId = "5f66096097db2b2da47b957d",
+                            ParentCategoryId = "5f7b898778acbf815a76d52f"
                         }
                     });
 

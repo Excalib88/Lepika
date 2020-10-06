@@ -162,5 +162,9 @@ namespace Grand.Api.DTOs.Catalog
         [BsonElement("ProductTags")]
         public IList<string> Tags { get; set; }
         public IList<string> AppliedDiscounts { get; set; }
+        public bool Gibkiy { get; set; }
+        public int Obrazci { get; set; }
+        public bool Podsvetka { get; set; }
+        public int QuantityInBox { get; set; }
     }
 }
