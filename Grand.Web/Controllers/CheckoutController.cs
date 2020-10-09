@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Core.Domain.Logging;
 
 namespace Grand.Web.Controllers
 {
@@ -1153,7 +1154,7 @@ namespace Grand.Web.Controllers
                 OpcCartValidate(cart);
 
                 string billingAddressId = form["billing_address_id"];
-
+                await _logger.InsertLog(LogLevel.Error, billingAddressId);
                 if (!String.IsNullOrEmpty(billingAddressId))
                 {
                     //existing address
