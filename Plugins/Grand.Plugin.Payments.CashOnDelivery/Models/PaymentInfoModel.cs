@@ -4,6 +4,6 @@ namespace Grand.Plugin.Payments.CashOnDelivery.Models
 {
     public class PaymentInfoModel : BaseGrandModel
     {
-        public string DescriptionText { get; set; }
+        public string DescriptionText { get; set; } = "Оплата наличными";
     }
 }

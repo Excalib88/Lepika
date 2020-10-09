@@ -179,7 +179,7 @@ namespace Grand.Plugin.Payments.PayInStore
         {
             var settings = new PayInStorePaymentSettings()
             {
-                DescriptionText = "<p>Reserve items at your local store, and pay in store when you pick up your order.<br />Our store location: USA, New York,...</p><p>P.S. You can edit this text from admin panel.</p>"
+                DescriptionText = "<p>При самовывозе вы можете оплатить заказ наличными или картой в салоне.</p>"
             };
             await _settingService.SaveSetting(settings);
 

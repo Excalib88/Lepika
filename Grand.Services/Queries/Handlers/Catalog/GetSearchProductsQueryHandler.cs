@@ -204,6 +204,31 @@ namespace Grand.Services.Queries.Handlers.Catalog
 
             }
 
+            if(request.Gibkiy == true)
+            {
+                filter &= builder.Where(x => x.Gibkiy == request.Gibkiy);
+            }
+
+            if (request.IsPodsvetka)
+            {
+                filter &= builder.Where(x => x.Podsvetka == request.IsPodsvetka);
+            }
+
+            if (request.IsAvailability)
+            {
+                filter &= builder.Where(x => x.Mark > 0);
+            }
+
+            if (request.IsExample)
+            {
+                filter &= builder.Where(x => x.Obrazci > 0);
+            }
+
+            if (request.IsNew)
+            {
+                filter &= builder.Where(x => x.MarkAsNew == request.IsNew);
+            }
+            
             //tag filtering
             if (!string.IsNullOrEmpty(request.ProductTag))
             {

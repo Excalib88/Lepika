@@ -184,7 +184,7 @@ namespace Grand.Plugin.Payments.CashOnDelivery
         {
             var settings = new CashOnDeliveryPaymentSettings
             {
-                DescriptionText = "<p>In cases where an order is placed, an authorized representative will contact you, personally or over telephone, to confirm the order.<br />After the order is confirmed, it will be processed.<br />Orders once confirmed, cannot be cancelled.</p><p>P.S. You can edit this text from admin panel.</p>"
+                DescriptionText = "<p>Если вы заказали доставку вы можете оплатить заказ при получении наличными.</p>"
             };
             await _settingService.SaveSetting(settings);
 

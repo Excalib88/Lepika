@@ -14,11 +14,13 @@ namespace Grand.Api.Infrastructure.Mapper
                 .ForMember(dest => dest.VendorCode, mo => mo.MapFrom(src => src.VendorCode))
                 .ForMember(dest => dest.ProductTypeId, mo => mo.MapFrom(src => (int)src.ProductType))
                 .ForMember(dest => dest.BackorderModeId, mo => mo.MapFrom(src => (int)src.BackorderMode))
-                .ForMember(dest => dest.DownloadActivationTypeId, mo => mo.MapFrom(src => (int)src.DownloadActivationType))
+                .ForMember(dest => dest.DownloadActivationTypeId,
+                    mo => mo.MapFrom(src => (int)src.DownloadActivationType))
                 .ForMember(dest => dest.IntervalUnitType, mo => mo.MapFrom(src => (int)src.IntervalUnitType))
                 .ForMember(dest => dest.GiftCardTypeId, mo => mo.MapFrom(src => (int)src.GiftCardType))
                 .ForMember(dest => dest.LowStockActivityId, mo => mo.MapFrom(src => (int)src.LowStockActivity))
-                .ForMember(dest => dest.ManageInventoryMethodId, mo => mo.MapFrom(src => (int)src.ManageInventoryMethod))
+                .ForMember(dest => dest.ManageInventoryMethodId,
+                    mo => mo.MapFrom(src => (int)src.ManageInventoryMethod))
                 .ForMember(dest => dest.RecurringCyclePeriodId, mo => mo.MapFrom(src => (int)src.RecurringCyclePeriod))
                 .ForMember(dest => dest.StockQuantity, mo => mo.Ignore())
                 .ForMember(dest => dest.ProductCategories, mo => mo.Ignore())

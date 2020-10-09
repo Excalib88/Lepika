@@ -166,5 +166,7 @@ namespace Grand.Api.DTOs.Catalog
         public int Obrazci { get; set; }
         public bool Podsvetka { get; set; }
         public int QuantityInBox { get; set; }
+        public string Material { get; set; }
+        public int Mark { get; set; }
     }
 }

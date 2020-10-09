@@ -52,7 +52,7 @@ namespace Grand.Core.Domain.Catalog
         /// Gets or sets the name
         /// </summary>
         public string Name { get; set; }
-
+        public int Mark { get; set; }
         /// <summary>
         /// Артикул товара
         /// </summary>
@@ -506,6 +506,8 @@ namespace Grand.Core.Domain.Catalog
         /// Gets or sets current highest bidder customer id
         /// </summary>
         public string HighestBidder { get; set; }
+
+        public string Material { get; set; }
 
         /// <summary>
         /// Gets or sets auction ended

@@ -32,6 +32,13 @@ namespace Grand.Web.Models.Catalog
         public string cid { get; set; }
         [GrandResourceDisplayName("Search.IncludeSubCategories")]
         public bool isc { get; set; }
+        
+        [GrandResourceDisplayName("Search.AdvancedSearch")]
+        public bool Gibkiy { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsPodsvetka { get; set; }
+        public bool IsAvailability { get; set; }
+        public bool IsExample { get; set; }
         /// <summary>
         /// Manufacturer ID
         /// </summary>

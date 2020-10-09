@@ -32,7 +32,13 @@ namespace Grand.Services.Queries.Models.Catalog
         public string LanguageId { get; set; } = "";
         public IList<string> FilteredSpecs { get; set; } = null;
         public ProductSortingEnum OrderBy { get; set; } = ProductSortingEnum.Position;
-        public bool ShowHidden { get; set; } = false;
+         public bool ShowHidden { get; set; } = false;
         public bool? OverridePublished { get; set; } = null;
+        public bool? Gibkiy { get; set; }
+        //ниже не добавлены в UI
+        public bool IsNew { get; set; }
+        public bool IsPodsvetka { get; set; }
+        public bool IsAvailability { get; set; }
+        public bool IsExample { get; set; }
     }
 }

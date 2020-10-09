@@ -210,7 +210,7 @@ namespace Grand.Plugin.Payments.CheckMoneyOrder
             //settings
             var settings = new CheckMoneyOrderPaymentSettings
             {
-                DescriptionText = "<p>Mail Personal or Business Check, Cashier's Check or money order to:</p><p><br /><b>GRANDNODE</b> <br /><b>your address here,</b> <br /><b>New York, NY 10001 </b> <br /><b>USA</b></p><p>Notice that if you pay by Personal or Business Check, your order may be held for up to 10 days after we receive your check to allow enough time for the check to clear.  If you want us to ship faster upon receipt of your payment, then we recommend your send a money order or Cashier's check.</p><p>P.S. You can edit this text from admin panel.</p>"
+                DescriptionText = "<p>При оплате онлайн с вами свяжется менеджер!</p> <p>Пожалуйста проверьте верно ли указан номер телефона для связи с вами!</p>"
             };
             await _settingService.SaveSetting(settings);
 

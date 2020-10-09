@@ -4,7 +4,7 @@ namespace Grand.Plugin.Payments.CashOnDelivery
 {
     public class CashOnDeliveryPaymentSettings : ISettings
     {
-        public string DescriptionText { get; set; }
+        public string DescriptionText { get; set; } = "Оплата наличными";
         /// <summary>
         /// Gets or sets a value indicating whether to "additional fee" is specified as percentage. true - percentage, false - fixed value.
         /// </summary>
