@@ -234,10 +234,12 @@ namespace Grand.Web.Areas.Admin.Models.Orders
         public decimal MaxAmountToRefund { get; set; }
         public string PrimaryStoreCurrencyCode { get; set; }
 
+        public bool IsSetOrderPaymentLink { get; set; } = true;
         //workflow info
         public bool CanCancelOrder { get; set; }
         public bool CanCapture { get; set; }
         public bool CanMarkOrderAsPaid { get; set; }
+        public bool CanSetOrderLink{get;set;}
         public bool CanRefund { get; set; }
         public bool CanRefundOffline { get; set; }
         public bool CanPartiallyRefund { get; set; }
