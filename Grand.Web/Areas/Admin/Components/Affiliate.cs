@@ -37,7 +37,7 @@ namespace Grand.Web.Areas.Admin.Components
             model.AffliateId = affiliateId;
 
             //order statuses
-            model.AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(HttpContext, false).ToList();
+            model.AvailableOrderStatuses = OrderStatus.NewOrder.ToSelectList(HttpContext, false).ToList();
             model.AvailableOrderStatuses.Insert(0, new SelectListItem { Text = _localizationService.GetResource("Admin.Common.All"), Value = "" });
 
             //payment statuses

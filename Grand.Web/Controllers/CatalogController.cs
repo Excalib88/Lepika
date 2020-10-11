@@ -317,7 +317,7 @@ namespace Grand.Web.Controllers
                     !(await _mediator.Send(new GetOrderQuery() {
                         CustomerId = _workContext.CurrentCustomer.Id,
                         VendorId = vendorId,
-                        Os = OrderStatus.Complete,
+                        Os = OrderStatus.Completed,
                         PageSize = 1
                     })).Any())
                 ModelState.AddModelError(string.Empty, _localizationService.GetResource("VendorReviews.VendorReviewPossibleOnlyAfterPurchasing"));

@@ -50,7 +50,7 @@ namespace Grand.Plugin.DiscountRequirements.Standard.HadSpentAmount
 
             var orders = await _orderService.SearchOrders(storeId: request.Store.Id,
                 customerId: request.Customer.Id,
-                os: OrderStatus.Complete);
+                os: OrderStatus.Completed);
             decimal spentAmount = orders.Sum(o => o.OrderTotal);
             if (spentAmount > spentAmountRequirement)
             {

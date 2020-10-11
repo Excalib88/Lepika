@@ -949,7 +949,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             model.PrimaryStoreCurrencyCode = (await _currencyService.GetCurrencyById(currencySettings.PrimaryStoreCurrencyId)).CurrencyCode;
 
             //order statuses
-            model.PointsForPurchases_Awarded_OrderStatuses = OrderStatus.Pending.ToSelectList(HttpContext, false, new int[] { 10, 40 }).ToList();
+            model.PointsForPurchases_Awarded_OrderStatuses = OrderStatus.NewOrder.ToSelectList(HttpContext, false, new int[] { 10, 40 }).ToList();
 
             return View(model);
         }
@@ -1035,7 +1035,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             model.PrimaryStoreCurrencyCode = (await _currencyService.GetCurrencyById(currencySettings.PrimaryStoreCurrencyId)).CurrencyCode;
 
             //gift card activation
-            model.GiftCards_Activated_OrderStatuses = OrderStatus.Pending.ToSelectList(HttpContext, false, new int[] { 10, 40 }).ToList();
+            model.GiftCards_Activated_OrderStatuses = OrderStatus.NewOrder.ToSelectList(HttpContext, false, new int[] { 10, 40 }).ToList();
             model.GiftCards_Activated_OrderStatuses.Insert(0, new SelectListItem { Text = "---", Value = "0" });
 
             //order ident

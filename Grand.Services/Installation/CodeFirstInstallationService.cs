@@ -5146,7 +5146,7 @@ namespace Grand.Services.Installation
                 PointsForRegistration = 0,
                 PointsForPurchases_Amount = 10,
                 PointsForPurchases_Points = 1,
-                PointsForPurchases_Awarded = OrderStatus.Complete,
+                PointsForPurchases_Awarded = OrderStatus.Completed,
                 ReduceRewardPointsAfterCancelOrder = true,
                 DisplayHowMuchWillBeEarned = true,
                 PointsAccumulatedForAllStores = true,

@@ -93,7 +93,7 @@ namespace Grand.Web.Features.Handlers.Orders
             model.OrderStatus = request.Order.OrderStatus.GetLocalizedEnum(_localizationService, request.Language.Id);
             model.IsReOrderAllowed = _orderSettings.IsReOrderAllowed;
             model.IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Order = request.Order });
-            model.PdfInvoiceDisabled = _pdfSettings.DisablePdfInvoicesForPendingOrders && request.Order.OrderStatus == OrderStatus.Pending;
+            model.PdfInvoiceDisabled = _pdfSettings.DisablePdfInvoicesForPendingOrders && request.Order.OrderStatus == OrderStatus.NewOrder;
             model.ShowAddOrderNote = _orderSettings.AllowCustomerToAddOrderNote;
 
             //shipping info
@@ -140,7 +140,7 @@ namespace Grand.Web.Features.Handlers.Orders
             //allow cancel order
             if (_orderSettings.UserCanCancelUnpaidOrder)
             {
-                if (request.Order.OrderStatus == OrderStatus.Pending && request.Order.PaymentStatus == Core.Domain.Payments.PaymentStatus.Pending
+                if (request.Order.OrderStatus == OrderStatus.NewOrder && request.Order.PaymentStatus == Core.Domain.Payments.PaymentStatus.Pending
                     && (request.Order.ShippingStatus == ShippingStatus.ShippingNotRequired || request.Order.ShippingStatus == ShippingStatus.NotYetShipped))
                     model.UserCanCancelUnpaidOrder = true;
             }

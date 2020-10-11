@@ -1187,7 +1187,7 @@ namespace Grand.Services.Customers
                     day = reminder.Levels.OrderBy(x => x.Level).FirstOrDefault().Day;
 
                 var orders = await (from or in _orderRepository.Table
-                                    where or.OrderStatusId == (int)OrderStatus.Complete
+                                    where or.OrderStatusId == (int)OrderStatus.Completed
                                     && or.CreatedOnUtc >= reminder.LastUpdateDate && or.CreatedOnUtc >= dateNow.AddDays(-day)
                                     select or).ToListAsync();
 

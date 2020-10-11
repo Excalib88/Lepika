@@ -62,8 +62,8 @@ namespace Grand.Services.Commands.Handlers.Orders
                 CreatedOnUtc = DateTime.UtcNow
             });
 
-            if (prevOrderStatus != OrderStatus.Complete &&
-                request.Os == OrderStatus.Complete
+            if (prevOrderStatus != OrderStatus.Completed &&
+                request.Os == OrderStatus.Completed
                 && request.NotifyCustomer)
             {
                 //notification

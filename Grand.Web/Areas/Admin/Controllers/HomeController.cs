@@ -67,7 +67,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             if (_workContext.CurrentCustomer.IsStaff())
                 storeId = _workContext.CurrentCustomer.StaffStoreId;
 
-            model.OrdersPending = (await _orderReportService.GetOrderAverageReportLine(storeId: storeId, os: OrderStatus.Pending)).CountOrders;
+            model.OrdersPending = (await _orderReportService.GetOrderAverageReportLine(storeId: storeId, os: OrderStatus.NewOrder)).CountOrders;
             model.AbandonedCarts = (await _customerService.GetAllCustomers(storeId: storeId, loadOnlyWithShoppingCart: true, pageSize: 1)).TotalCount;
 
             HttpContext.RequestServices.GetRequiredService<IProductService>().GetLowStockProducts(vendorId, storeId, out IList<Product> products, out IList<ProductAttributeCombination> combinations);

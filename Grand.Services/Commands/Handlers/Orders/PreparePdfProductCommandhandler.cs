@@ -88,7 +88,7 @@ namespace Grand.Services.Commands.Handlers.Orders
                 productTable.AddCell(new Paragraph(String.Format("{0}: {1}", _localizationService.GetResource("PDFProductCatalog.Price", language.Id), priceStr), font));
                 productTable.AddCell(new Paragraph(String.Format("{0}: {1}", _localizationService.GetResource("PDFProductCatalog.SKU", language.Id), product.Sku), font));
 
-                if (product.IsShipEnabled && product.Weight > Decimal.Zero)
+                if (product.Weight > Decimal.Zero)
                     productTable.AddCell(new Paragraph(String.Format("{0}: {1} {2}", _localizationService.GetResource("PDFProductCatalog.Weight", language.Id), product.Weight.ToString("0.00"), (await _measureService.GetMeasureWeightById(_measureSettings.BaseWeightId)).Name), font));
 
                 if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock)

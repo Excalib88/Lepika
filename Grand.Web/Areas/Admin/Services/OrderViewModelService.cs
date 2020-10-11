@@ -180,7 +180,7 @@ namespace Grand.Web.Areas.Admin.Services
         {
             //order statuses
             var model = new OrderListModel {
-                AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(_localizationService, _workContext, false).ToList()
+                AvailableOrderStatuses = OrderStatus.NewOrder.ToSelectList(_localizationService, _workContext, false).ToList()
             };
             model.AvailableOrderStatuses.Insert(0, new SelectListItem { Text = _localizationService.GetResource("Admin.Common.All"), Value = " " });
             if (orderStatusId.HasValue)

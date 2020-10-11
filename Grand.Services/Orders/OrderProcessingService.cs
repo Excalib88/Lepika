@@ -346,7 +346,7 @@ namespace Grand.Services.Orders
                 PrimaryCurrencyCode = details.PrimaryCurrencyCode,
                 CurrencyRate = details.CustomerCurrencyRate,
                 AffiliateId = details.AffiliateId,
-                OrderStatus = OrderStatus.Pending,
+                OrderStatus = OrderStatus.NewOrder,
                 AllowStoringCreditCardNumber = processPaymentResult.AllowStoringCreditCardNumber,
                 CardType = processPaymentResult.AllowStoringCreditCardNumber ? _encryptionService.EncryptText(processPaymentRequest.CreditCardType) : string.Empty,
                 CardName = processPaymentResult.AllowStoringCreditCardNumber ? _encryptionService.EncryptText(processPaymentRequest.CreditCardName) : string.Empty,
@@ -1662,7 +1662,7 @@ namespace Grand.Services.Orders
                 throw new ArgumentNullException("order");
 
             if (order.OrderStatus == OrderStatus.Cancelled ||
-                order.OrderStatus == OrderStatus.Pending)
+                order.OrderStatus == OrderStatus.NewOrder)
                 return false;
 
             if (order.PaymentStatus == PaymentStatus.Authorized &&

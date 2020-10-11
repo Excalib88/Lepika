@@ -6,17 +6,38 @@ namespace Grand.Core.Domain.Orders
     public enum OrderStatus
     {
         /// <summary>
-        /// Pending
+        /// New order
         /// </summary>
-        Pending = 10,
+        NewOrder = 10,
         /// <summary>
-        /// Processing
+        /// In Processing
         /// </summary>
-        Processing = 20,
+        InProcessing = 20,
         /// <summary>
-        /// Complete
+        /// Ready to payment
         /// </summary>
-        Complete = 30,
+        ReadyToPay = 30,
+        
+        /// <summary>
+        /// Оплачен
+        /// </summary>
+        Paid = 50,
+        
+        /// <summary>
+        /// Сборка и доставка
+        /// </summary>
+        AssemblyAndDelivery = 60,
+        
+        /// <summary>
+        /// Доставлен
+        /// </summary>
+        Delivered = 70,
+        
+        /// <summary>
+        /// Выполнен
+        /// </summary>
+        Completed = 80,
+        
         /// <summary>
         /// Cancelled
         /// </summary>

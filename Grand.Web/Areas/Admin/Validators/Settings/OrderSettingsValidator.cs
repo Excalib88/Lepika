@@ -14,7 +14,7 @@ namespace Grand.Web.Areas.Admin.Validators.Settings
             ILocalizationService localizationService)
             : base(validators)
         {
-            RuleFor(x => x.GiftCards_Activated_OrderStatusId).NotEqual((int)OrderStatus.Pending)
+            RuleFor(x => x.GiftCards_Activated_OrderStatusId).NotEqual((int)OrderStatus.NewOrder)
                 .WithMessage(localizationService.GetResource("Admin.Configuration.Settings.RewardPoints.PointsForPurchases_Awarded.Pending"));
         }
     }

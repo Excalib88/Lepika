@@ -208,7 +208,7 @@ namespace Grand.Web.Areas.Admin.Controllers
                 model.AvailableStores.Add(new SelectListItem { Text = s.Shortcut, Value = s.Id.ToString() });
 
             //order statuses
-            model.AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(HttpContext, false).ToList();
+            model.AvailableOrderStatuses = OrderStatus.NewOrder.ToSelectList(HttpContext, false).ToList();
             model.AvailableOrderStatuses.Insert(0, new SelectListItem { Text = _localizationService.GetResource("Admin.Common.All"), Value = "" });
 
             //payment statuses
@@ -383,9 +383,9 @@ namespace Grand.Web.Areas.Admin.Controllers
 
             var report = new List<OrderAverageReportLineSummary>
             {
-                await _orderReportService.OrderAverageReport(storeId, OrderStatus.Pending),
-                await _orderReportService.OrderAverageReport(storeId, OrderStatus.Processing),
-                await _orderReportService.OrderAverageReport(storeId, OrderStatus.Complete),
+                await _orderReportService.OrderAverageReport(storeId, OrderStatus.NewOrder),
+                await _orderReportService.OrderAverageReport(storeId, OrderStatus.InProcessing),
+                await _orderReportService.OrderAverageReport(storeId, OrderStatus.Completed),
                 await _orderReportService.OrderAverageReport(storeId, OrderStatus.Cancelled)
             };
             var model = report.Select(x => new OrderAverageReportLineSummaryModel
@@ -490,13 +490,13 @@ namespace Grand.Web.Areas.Admin.Controllers
                 ViewLink = Url.Action("List", "Order", new { shippingStatusId = ((int)ShippingStatus.NotYetShipped).ToString() })
             });
             //pending
-            var osPending = await _orderReportService.GetOrderAverageReportLine(storeId: storeId, os: OrderStatus.Pending, ignoreCancelledOrders: true);
+            var osPending = await _orderReportService.GetOrderAverageReportLine(storeId: storeId, os: OrderStatus.NewOrder, ignoreCancelledOrders: true);
             model.Add(new OrderIncompleteReportLineModel
             {
                 Item = _localizationService.GetResource("Admin.Reports.Incomplete.TotalIncompleteOrders"),
                 Count = osPending.CountOrders,
                 Total = _priceFormatter.FormatPrice(osPending.SumOrders, true, false),
-                ViewLink = Url.Action("List", "Order", new { orderStatusId = ((int)OrderStatus.Pending).ToString() })
+                ViewLink = Url.Action("List", "Order", new { orderStatusId = ((int)OrderStatus.NewOrder).ToString() })
             });
 
             var gridModel = new DataSourceResult
@@ -520,7 +520,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             var model = new CountryReportModel
             {
                 //order statuses
-                AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(HttpContext, false).ToList()
+                AvailableOrderStatuses = OrderStatus.NewOrder.ToSelectList(HttpContext, false).ToList()
             };
             model.AvailableOrderStatuses.Insert(0, new SelectListItem { Text = _localizationService.GetResource("Admin.Common.All"), Value = "" });
 

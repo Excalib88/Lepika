@@ -329,7 +329,7 @@ namespace Grand.Services.Orders.Tests
                         order.PaymentStatus = ps;
                         order.ShippingStatus = ss;
 
-                        if ((os != OrderStatus.Cancelled && os != OrderStatus.Pending)
+                        if ((os != OrderStatus.Cancelled && os != OrderStatus.NewOrder)
                             && (ps == PaymentStatus.Authorized))
                             Assert.IsTrue(await _orderProcessingService.CanCapture(order));
                         else

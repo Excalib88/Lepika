@@ -54,7 +54,7 @@ namespace Grand.Services.ExportImport.Tests
                 new Order
                 {
                 OrderGuid = Guid.NewGuid(),
-                OrderStatus = OrderStatus.Complete,
+                OrderStatus = OrderStatus.Completed,
                 ShippingStatus = ShippingStatus.Shipped,
                 PaymentStatus = PaymentStatus.Paid,
                 PaymentMethodSystemName = "PaymentMethodSystemName1",

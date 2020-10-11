@@ -29,7 +29,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Core.Data;
 using Grand.Web.Services;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Grand.Web.Controllers
 {
@@ -54,6 +57,7 @@ namespace Grand.Web.Controllers
         private readonly ShoppingCartSettings _shoppingCartSettings;
         private readonly CaptchaSettings _captchaSettings;
         private readonly IImportService _importService;
+        private readonly IRepository<Product> _productRepository;
         #endregion
 
         #region Constructors
@@ -74,7 +78,7 @@ namespace Grand.Web.Controllers
             IMediator mediator,
             CatalogSettings catalogSettings,
             ShoppingCartSettings shoppingCartSettings,
-            CaptchaSettings captchaSettings, IImportService importService)
+            CaptchaSettings captchaSettings, IImportService importService, IRepository<Product> productRepository)
         {
             _productService = productService;
             _workContext = workContext;
@@ -93,6 +97,7 @@ namespace Grand.Web.Controllers
             _shoppingCartSettings = shoppingCartSettings;
             _captchaSettings = captchaSettings;
             _importService = importService;
+            _productRepository = productRepository;
         }
 
         #endregion
@@ -552,7 +557,7 @@ namespace Grand.Web.Controllers
             }
 
             if (_catalogSettings.ProductReviewPossibleOnlyAfterPurchasing &&
-                    !(await orderService.SearchOrders(customerId: _workContext.CurrentCustomer.Id, productId: productId, os: OrderStatus.Complete)).Any())
+                    !(await orderService.SearchOrders(customerId: _workContext.CurrentCustomer.Id, productId: productId, os: OrderStatus.Completed)).Any())
                 ModelState.AddModelError(string.Empty, _localizationService.GetResource("Reviews.ProductReviewPossibleOnlyAfterPurchasing"));
 
             if (ModelState.IsValid)
@@ -998,6 +1003,20 @@ namespace Grand.Web.Controllers
             var sourceCollection = await _importService.Deserialize();
             var result = await _importService.MapRange(sourceCollection);
             
+            return Ok();
+        }
+
+        [HttpGet("update-products")]
+        public async Task<IActionResult> UpdateProducts()
+        {
+            // Обновление возможности доставки
+            await _productRepository.Collection.UpdateManyAsync(x => !x.IsShipEnabled, 
+                Builders<Product>.Update.Set(p => p.IsShipEnabled, true));
+            
+            // обновление возможности добавления в список желаний
+            await _productRepository.Collection.UpdateManyAsync(x => x.DisableWishlistButton, 
+                Builders<Product>.Update.Set(p => p.DisableWishlistButton, false));
+
             return Ok();
         }
 

@@ -37,14 +37,14 @@ namespace Grand.Services.Commands.Handlers.Orders
                 await _orderService.UpdateOrder(request.Order);
             }
 
-            if (request.Order.OrderStatus == OrderStatus.Pending)
+            if (request.Order.OrderStatus == OrderStatus.NewOrder)
             {
                 if (request.Order.PaymentStatus == PaymentStatus.Authorized ||
                     request.Order.PaymentStatus == PaymentStatus.Paid)
                 {
                     await _mediator.Send(new SetOrderStatusCommand {
                         Order = request.Order,
-                        Os = OrderStatus.Processing,
+                        Os = OrderStatus.InProcessing,
                         NotifyCustomer = false,
                         NotifyStoreOwner = false
                     });
@@ -56,7 +56,7 @@ namespace Grand.Services.Commands.Handlers.Orders
                 {
                     await _mediator.Send(new SetOrderStatusCommand {
                         Order = request.Order,
-                        Os = OrderStatus.Processing,
+                        Os = OrderStatus.InProcessing,
                         NotifyCustomer = false,
                         NotifyStoreOwner = false
                     });
@@ -64,7 +64,7 @@ namespace Grand.Services.Commands.Handlers.Orders
             }
 
             if (request.Order.OrderStatus != OrderStatus.Cancelled &&
-                request.Order.OrderStatus != OrderStatus.Complete)
+                request.Order.OrderStatus != OrderStatus.Completed)
             {
                 if (request.Order.PaymentStatus == PaymentStatus.Paid)
                 {
@@ -89,7 +89,7 @@ namespace Grand.Services.Commands.Handlers.Orders
                     {
                         await _mediator.Send(new SetOrderStatusCommand {
                             Order = request.Order,
-                            Os = OrderStatus.Complete,
+                            Os = OrderStatus.Completed,
                             NotifyCustomer = true,
                             NotifyStoreOwner = false
                         });

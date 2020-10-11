@@ -165,7 +165,7 @@ namespace Grand.Web.Controllers
             var order = await _orderService.GetOrderById(orderId);
             if (order == null || order.PaymentStatus != Core.Domain.Payments.PaymentStatus.Pending
                 || (order.ShippingStatus != ShippingStatus.ShippingNotRequired && order.ShippingStatus != ShippingStatus.NotYetShipped)
-                || order.OrderStatus != OrderStatus.Pending
+                || order.OrderStatus != OrderStatus.NewOrder
                 || order.Deleted || _workContext.CurrentCustomer.Id != order.CustomerId
                 || !_orderSettings.UserCanCancelUnpaidOrder)
 
