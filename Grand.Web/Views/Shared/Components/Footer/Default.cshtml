@@ -189,6 +189,17 @@
                         </a>
                     </li>
                 }
+                @if (!string.IsNullOrEmpty(Model.VkLink))
+                {
+                    <li class="list-group-item vk">
+                        <a href="@Model.VkLink" rel="noopener" target="_blank">
+                            <span class="vk-icon">
+                                <img class="vk-icon" src="content/images/icons/vk.png" alt="vk icon"/>
+                            </span>
+                            <span class="sr-only">vk</span>
+                        </a>
+                    </li>
+                }
             </ol>
         </div>
         <div class="footer-lower small">

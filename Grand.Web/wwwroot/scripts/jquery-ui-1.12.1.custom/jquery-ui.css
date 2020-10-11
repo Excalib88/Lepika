@@ -542,6 +542,9 @@ a.ui-button:active,
 .ui-button .ui-state-highlight.ui-icon {
 	background-image: url("images/ui-icons_777620_256x240.png");
 }
+.vk-icon {
+	background-image: url("images/vk.png");
+}
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
 	background-image: url("images/ui-icons_cc0000_256x240.png");
