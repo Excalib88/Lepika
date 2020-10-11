@@ -2962,7 +2962,7 @@
     <Value>Создать календарь</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.Calendar.OrderId">
-    <Value>порядок</Value>
+    <Value>Заказ</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.Calendar.Parameter">
     <Value>параметр</Value>
@@ -11977,7 +11977,7 @@
     <Value>Введите сообщение.</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.GiftCards.Fields.Order">
-    <Value>порядок</Value>
+    <Value>Заказ</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.GiftCards.Fields.Order.Hint">
     <Value>Подарочная карта была куплена с этим заказом.</Value>
@@ -12019,7 +12019,7 @@
     <Value>Используемый</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.GiftCards.History.Order">
-    <Value>порядок</Value>
+    <Value>Заказ</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.GiftCards.History.UsedValue">
     <Value>Использованное количество</Value>
@@ -12959,7 +12959,7 @@
     <Value>Не выбрано ни одного груза</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Orders.Shipments.OrderID">
-    <Value>Порядок #</Value>
+    <Value>Заказ #</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Orders.Shipments.OrderID.Hint">
     <Value>Заказ, связанный с этой отправкой.</Value>
