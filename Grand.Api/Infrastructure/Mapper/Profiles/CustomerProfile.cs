@@ -42,6 +42,7 @@ namespace Grand.Api.Infrastructure.Mapper
             CreateMap<Customer, CustomerDto>()
                 .ForMember(dest => dest.FirstName, mo => mo.MapFrom(src => src.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.FirstName, "")))
                 .ForMember(dest => dest.LastName, mo => mo.MapFrom(src => src.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.LastName, "")))
+                .ForMember(dest => dest.Patronymic, mo => mo.MapFrom(src => src.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.Patronymic, "")))
                 .ForMember(dest => dest.City, mo => mo.MapFrom(src => src.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.City, "")))
                 .ForMember(dest => dest.Company, mo => mo.MapFrom(src => src.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.Company, "")))
                 .ForMember(dest => dest.DateOfBirth, mo => mo.MapFrom(src => src.GetAttributeFromEntity<DateTime?>(SystemCustomerAttributeNames.DateOfBirth, "")))

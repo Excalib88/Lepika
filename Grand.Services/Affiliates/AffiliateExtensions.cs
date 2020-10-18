@@ -21,10 +21,11 @@ namespace Grand.Services.Affiliates
 
             var firstName = affiliate.Address.FirstName;
             var lastName = affiliate.Address.LastName;
+            var patronymic = affiliate.Address.Patronymic;
 
             string fullName = "";
-            if (!String.IsNullOrWhiteSpace(firstName) && !String.IsNullOrWhiteSpace(lastName))
-                fullName = string.Format("{0} {1}", firstName, lastName);
+            if (!String.IsNullOrWhiteSpace(firstName) && !String.IsNullOrWhiteSpace(lastName) && !string.IsNullOrWhiteSpace(patronymic))
+                fullName = string.Format("{0} {1} {2}", firstName, lastName, patronymic);
             else
             {
                 if (!String.IsNullOrWhiteSpace(firstName))
@@ -32,6 +33,9 @@ namespace Grand.Services.Affiliates
 
                 if (!String.IsNullOrWhiteSpace(lastName))
                     fullName = lastName;
+                
+                if (!string.IsNullOrWhiteSpace(patronymic))
+                    fullName = patronymic;
             }
             return fullName;
         }

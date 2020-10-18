@@ -53,6 +53,7 @@ namespace Grand.Api.Commands.Handlers.Customers
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Gender, model.Gender);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.FirstName, model.FirstName);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.LastName, model.LastName);
+            await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Patronymic, model.Patronymic);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.DateOfBirth, model.DateOfBirth);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Company, model.Company);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.StreetAddress, model.StreetAddress);

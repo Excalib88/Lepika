@@ -49,6 +49,9 @@ namespace Grand.Web.Models.Customer
 
         [GrandResourceDisplayName("Account.Fields.LastName")]
         public string LastName { get; set; }
+        
+        [GrandResourceDisplayName("Account.Fields.Patronymic")]
+        public string Patronymic{get;set;}
 
 
         public bool DateOfBirthEnabled { get; set; }

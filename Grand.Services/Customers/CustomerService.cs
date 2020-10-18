@@ -1058,6 +1058,7 @@ namespace Grand.Services.Customers
                 .Set(x => x.Addresses.ElementAt(-1).FaxNumber, address.FaxNumber)
                 .Set(x => x.Addresses.ElementAt(-1).FirstName, address.FirstName)
                 .Set(x => x.Addresses.ElementAt(-1).LastName, address.LastName)
+                .Set(x => x.Addresses.ElementAt(-1).Patronymic, address.Patronymic)
                 .Set(x => x.Addresses.ElementAt(-1).PhoneNumber, address.PhoneNumber)
                 .Set(x => x.Addresses.ElementAt(-1).StateProvinceId, address.StateProvinceId)
                 .Set(x => x.Addresses.ElementAt(-1).ZipPostalCode, address.ZipPostalCode);

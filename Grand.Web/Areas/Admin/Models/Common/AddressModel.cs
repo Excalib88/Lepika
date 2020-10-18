@@ -25,6 +25,10 @@ namespace Grand.Web.Areas.Admin.Models.Common
         [GrandResourceDisplayName("Admin.Address.Fields.LastName")]
         
         public string LastName { get; set; }
+        
+        [GrandResourceDisplayName("Admin.Address.Fields.Patronymic")]
+        public string Patronymic{get;set;}
+        
 
         [GrandResourceDisplayName("Admin.Address.Fields.Email")]
         

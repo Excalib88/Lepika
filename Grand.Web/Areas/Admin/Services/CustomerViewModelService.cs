@@ -550,6 +550,7 @@ namespace Grand.Web.Areas.Admin.Services
                     //form fields
                     model.FirstName = await customer.GetAttribute<string>(_genericAttributeService, SystemCustomerAttributeNames.FirstName);
                     model.LastName = await customer.GetAttribute<string>(_genericAttributeService, SystemCustomerAttributeNames.LastName);
+                    model.Patronymic = await customer.GetAttribute<string>(_genericAttributeService, SystemCustomerAttributeNames.Patronymic);
                     model.Gender = await customer.GetAttribute<string>(_genericAttributeService, SystemCustomerAttributeNames.Gender);
                     model.DateOfBirth = await customer.GetAttribute<DateTime?>(_genericAttributeService, SystemCustomerAttributeNames.DateOfBirth);
                     model.Company = await customer.GetAttribute<string>(_genericAttributeService, SystemCustomerAttributeNames.Company);
@@ -744,6 +745,7 @@ namespace Grand.Web.Areas.Admin.Services
                 await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Gender, model.Gender);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.FirstName, model.FirstName);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.LastName, model.LastName);
+            await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Patronymic, model.Patronymic);
             if (_customerSettings.DateOfBirthEnabled)
                 await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.DateOfBirth, model.DateOfBirth);
             if (_customerSettings.CompanyEnabled)
@@ -929,6 +931,7 @@ namespace Grand.Web.Areas.Admin.Services
                 await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Gender, model.Gender);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.FirstName, model.FirstName);
             await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.LastName, model.LastName);
+            await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.Patronymic, model.Patronymic);
             if (_customerSettings.DateOfBirthEnabled)
                 await _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.DateOfBirth, model.DateOfBirth);
             if (_customerSettings.CompanyEnabled)

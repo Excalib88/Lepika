@@ -80,6 +80,7 @@ namespace Grand.Web.Features.Handlers.Common
                 model.Id = address.Id;
                 model.FirstName = address.FirstName;
                 model.LastName = address.LastName;
+                model.Patronymic = address.Patronymic;
                 model.Email = address.Email;
                 model.Company = address.Company;
                 model.VatNumber = address.VatNumber;
@@ -110,6 +111,7 @@ namespace Grand.Web.Features.Handlers.Common
                 model.Email = customer.Email;
                 model.FirstName = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.FirstName);
                 model.LastName = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.LastName);
+                model.Patronymic = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.Patronymic);
                 model.Company = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.Company);
                 model.VatNumber = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.VatNumber);
                 model.Address1 = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.StreetAddress);

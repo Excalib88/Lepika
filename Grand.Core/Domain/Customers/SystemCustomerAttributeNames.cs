@@ -5,6 +5,7 @@ namespace Grand.Core.Domain.Customers
         //Form fields
         public static string FirstName { get { return "FirstName"; } }
         public static string LastName { get { return "LastName"; } }
+        public static string Patronymic { get { return "Patronymic"; } }
         public static string Gender { get { return "Gender"; } }
         public static string DateOfBirth { get { return "DateOfBirth"; } }
         public static string Company { get { return "Company"; } }

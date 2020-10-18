@@ -14,7 +14,7 @@
                         <h5>@T("Order.BillingAddress")</h5>
                     </li>
                     <li class="name">
-                        @Model.BillingAddress.FirstName @Model.BillingAddress.LastName
+                        @Model.BillingAddress.FirstName @Model.BillingAddress.LastName @Model.BillingAddress.Patronymic
                     </li>
                     <li class="email">
                         <span>@T("Order.Email"):</span> @Model.BillingAddress.Email
@@ -131,7 +131,7 @@
                                 <h5>@T("Order.ShippingAddress")</h5>
                             </li>
                             <li class="name">
-                                @Model.ShippingAddress.FirstName @Model.ShippingAddress.LastName
+                                @Model.ShippingAddress.FirstName @Model.ShippingAddress.LastName @Model.ShippingAddress.Patronymic
                             </li>
                             <li class="email">
                                 <span>@T("Order.Email"):</span> @Model.ShippingAddress.Email

@@ -72,6 +72,14 @@
                 </div>
             </div>
         }
+        
+        <div class="form-group">
+            <admin-label asp-for="Patronymic" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="Patronymic" />
+                <span asp-validation-for="Patronymic"></span>
+            </div>
+        </div>
         @if (Model.EmailEnabled)
         {
             <div class="form-group">

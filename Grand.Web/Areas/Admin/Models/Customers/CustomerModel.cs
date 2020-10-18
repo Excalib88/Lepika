@@ -67,6 +67,8 @@ namespace Grand.Web.Areas.Admin.Models.Customers
         [GrandResourceDisplayName("Admin.Customers.Customers.Fields.LastName")]
         
         public string LastName { get; set; }
+        [GrandResourceDisplayName("Admin.Customers.Customers.Fields.Patronymic")]
+        public string Patronymic{get;set;}
         [GrandResourceDisplayName("Admin.Customers.Customers.Fields.FullName")]
         public string FullName { get; set; }
         

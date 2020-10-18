@@ -89,6 +89,7 @@ namespace Grand.Core.Domain.Common
             {
                 FirstName = this.FirstName,
                 LastName = this.LastName,
+                Patronymic = this.Patronymic,
                 Email = this.Email,
                 Company = this.Company,
                 VatNumber = this.VatNumber,

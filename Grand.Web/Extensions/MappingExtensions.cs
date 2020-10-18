@@ -176,6 +176,8 @@ namespace Grand.Web.Extensions
                     model.FirstName = model.FirstName.Trim();
                 if (model.LastName != null)
                     model.LastName = model.LastName.Trim();
+                if (model.Patronymic != null)
+                    model.Patronymic = model.Patronymic.Trim();
                 if (model.Email != null)
                     model.Email = model.Email.Trim();
                 if (model.Company != null)
@@ -197,6 +199,7 @@ namespace Grand.Web.Extensions
             }
             destination.FirstName = model.FirstName;
             destination.LastName = model.LastName;
+            destination.Patronymic = model.Patronymic;
             destination.Email = model.Email;
             destination.Company = model.Company;
             destination.VatNumber = model.VatNumber;

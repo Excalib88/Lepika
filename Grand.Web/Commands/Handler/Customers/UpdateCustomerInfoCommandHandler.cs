@@ -145,6 +145,7 @@ namespace Grand.Web.Commands.Handler.Customers
 
             await _genericAttributeService.SaveAttribute(request.Customer, SystemCustomerAttributeNames.FirstName, request.Model.FirstName);
             await _genericAttributeService.SaveAttribute(request.Customer, SystemCustomerAttributeNames.LastName, request.Model.LastName);
+            await _genericAttributeService.SaveAttribute(request.Customer, SystemCustomerAttributeNames.Patronymic, request.Model.Patronymic);
             if (_customerSettings.DateOfBirthEnabled)
             {
                 DateTime? dateOfBirth = request.Model.ParseDateOfBirth();

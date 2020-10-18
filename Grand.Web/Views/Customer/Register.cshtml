@@ -95,6 +95,12 @@
                         <input asp-for="LastName" class="form-control"/>
                         <span asp-validation-for="LastName"></span>
                     </fieldset>
+                    <fieldset class="col-sm-6 col-12 form-group">
+                        <legend class="sr-only">@T("account.fields.patronymic")</legend>
+                        <label asp-for="Patronymic" class="col-form-label">@T("Account.Fields.Patronymic"):</label>
+                        <input asp-for="Patronymic" class="form-control"/>
+                        <span asp-validation-for="Patronymic"></span>
+                    </fieldset>
                     </div>
 
                     @if (Model.DateOfBirthEnabled)

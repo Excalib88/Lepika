@@ -112,6 +112,7 @@ namespace Grand.Web.Features.Handlers.Customers
             model.VatNumber = request.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.VatNumber);
             model.FirstName = request.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.FirstName);
             model.LastName = request.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.LastName);
+            model.Patronymic = request.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.Patronymic);
             model.Gender = request.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.Gender);
             var dateOfBirth = request.Customer.GetAttributeFromEntity<DateTime?>(SystemCustomerAttributeNames.DateOfBirth);
             if (dateOfBirth.HasValue)
