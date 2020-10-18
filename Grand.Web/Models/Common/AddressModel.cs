@@ -21,6 +21,8 @@ namespace Grand.Web.Models.Common
         public string FirstName { get; set; }
         [GrandResourceDisplayName("Address.Fields.LastName")]
         public string LastName { get; set; }
+        [GrandResourceDisplayName("Address.Fields.Patronymic")]
+        public string Patronymic { get; set; }
         [GrandResourceDisplayName("Address.Fields.Email")]
         public string Email { get; set; }
 

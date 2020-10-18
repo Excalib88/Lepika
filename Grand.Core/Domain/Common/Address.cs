@@ -16,6 +16,8 @@ namespace Grand.Core.Domain.Common
         /// </summary>
         public string LastName { get; set; }
 
+        public string Patronymic { get; set; }
+
         /// <summary>
         /// Gets or sets the email
         /// </summary>
