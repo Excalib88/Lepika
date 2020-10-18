@@ -359,7 +359,14 @@ namespace Grand.Web.Areas.Admin.Services
             return (items, aggregate, orders.TotalCount);
         }
 
-
+        public virtual async Task SetPaymentLink(string orderId, string link)
+        {
+            var order = await _orderService.GetOrderById(orderId);
+            order.PaymentLink = link;
+            
+            await _orderService.UpdateOrder(order);
+        }
+        
         public virtual async Task PrepareOrderDetailsModel(OrderModel model, Order order)
         {
             if (order == null)
@@ -955,6 +962,11 @@ namespace Grand.Web.Areas.Admin.Services
             return model;
         }
 
+        public Task SetPaymentLink(OrderModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual async Task<IList<OrderModel.OrderNote>> PrepareOrderNotes(Order order)
         {
             //order notes
@@ -1291,7 +1303,7 @@ namespace Grand.Web.Areas.Admin.Services
 
             DateTime? endDateValue = (model.EndDate == null) ? null
                             : (DateTime?)_dateTimeHelper.ConvertToUtcTime(model.EndDate.Value, _dateTimeHelper.CurrentTimeZone).AddDays(1);
-
+    
             OrderStatus? orderStatus = model.OrderStatusId > 0 ? (OrderStatus?)(model.OrderStatusId) : null;
             PaymentStatus? paymentStatus = model.PaymentStatusId > 0 ? (PaymentStatus?)(model.PaymentStatusId) : null;
             ShippingStatus? shippingStatus = model.ShippingStatusId > 0 ? (ShippingStatus?)(model.ShippingStatusId) : null;

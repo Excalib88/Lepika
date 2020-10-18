@@ -515,7 +515,7 @@ namespace Grand.Services.Orders
             details.OrderSubTotalDiscountInclTax = orderSubTotalDiscountAmount;
 
             foreach (var disc in orderSubTotalAppliedDiscounts)
-                if (!details.AppliedDiscounts.Where(x => x.DiscountId == disc.DiscountId).Any())
+                if (details.AppliedDiscounts.All(x => x.DiscountId != disc.DiscountId))
                     details.AppliedDiscounts.Add(disc);
 
             //sub total (excl tax)

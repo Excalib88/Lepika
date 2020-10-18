@@ -18,6 +18,7 @@ namespace Grand.Web.Areas.Admin.Interfaces
         Task<OrderModel.AddOrderProductModel.ProductDetailsModel> PrepareAddProductToOrderModel(Order order, string productId);
         Task<OrderAddressModel> PrepareOrderAddressModel(Order order, Address address);
         Task LogEditOrder(string orderId);
+        Task SetPaymentLink(string orderId, string link);
         Task<IList<OrderModel.OrderNote>> PrepareOrderNotes(Order order);
         Task InsertOrderNote(Order order, string downloadId, bool displayToCustomer, string message);
         Task DeleteOrderNote(Order order, string id);

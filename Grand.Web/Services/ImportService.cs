@@ -131,7 +131,7 @@ namespace Grand.Web.Services
                             ShowOnSearchBox = false,
                             ShowOnHomePage = true,
                             CategoryTemplateId = "5f66096097db2b2da47b957d",
-                            ParentCategoryId = "5f7f77622a432ca39dce344b"
+                            ParentCategoryId = "5f8c210ea1bd7e55c439472b"
                         }
                     });
 

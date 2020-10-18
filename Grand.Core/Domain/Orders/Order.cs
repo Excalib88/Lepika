@@ -26,6 +26,7 @@ namespace Grand.Core.Domain.Orders
         /// </summary>
         public Guid OrderGuid { get; set; }
 
+        public string PaymentLink { get; set; }
         /// <summary>
         /// Gets or sets the order identifier
         /// </summary>

@@ -280,7 +280,14 @@ namespace Grand.Web.Areas.Admin.Controllers
         #region Order details
 
         #region Payments and other order workflow
-
+        
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> SetPaymentLink(string orderId, string paymenturl)
+        {
+            await _orderViewModelService.SetPaymentLink(orderId, paymenturl);
+            return Ok();
+        }
+        
         [HttpPost, ActionName("Edit")]
         [FormValueRequired("cancelorder")]
         public async Task<IActionResult> CancelOrder(string id)

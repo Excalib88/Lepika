@@ -637,11 +637,9 @@
                     {                        
                         <div class="form-horizontal form-horizontal  portlet light bg-inverse form-bordered box green" style="border-top: 1px solid #5cd1db; max-width:600px;">
                             <div class="form-group">
-                                <div>
-                                    <label class="control-label">Указать ссылку?</label>
-                                    <span>        </span>
-                                    <admin-input asp-for="IsSetOrderPaymentLink" asp-display-hint="false" class="control-checkbox"></admin-input>
-                                </div>
+                                <label class="control-label">Указать ссылку?</label>
+                                <span> </span>
+                                <admin-input asp-for="IsSetOrderPaymentLink" asp-display-hint="false" class="control-checkbox"></admin-input>
                             </div>
                             <div class="form-body" id="pnlAddOrderLink">
                                 <div class="form-group">
@@ -649,11 +647,15 @@
                                         Ссылка на оплату:
                                     </div>
                                     <div>
-                                        <input  type="text" name="paymenturl" id="paymenturl" />
-                                        <br/><br/>
-                                        <div style="text-align: center;">
-                                            <input type="button" id="savePaymentUrl" class="k-button" value="Сохранить" />
-                                        </div>
+                                        <form method="post">
+                                            <input asp-for="Id" type="text" name="orderId" disabled>
+                                            <input asp-for="PaymentLink" type="text" name="paymenturl" id="paymenturl"/>
+                                            <br/><br/>
+                                            <div style="text-align: center;">
+                                                <input type="submit" id="savePaymentUrl" class="k-button" value="Сохранить"/>
+                                            </div>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
