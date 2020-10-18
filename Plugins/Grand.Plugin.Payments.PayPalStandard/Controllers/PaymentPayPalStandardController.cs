@@ -173,6 +173,7 @@ namespace Grand.Plugin.Payments.PayPalStandard.Controllers
 
         public async Task<IActionResult> PDTHandler(IFormCollection form)
         {
+            return Ok();
             // var tx = _webHelper.QueryString<string>("tx");
             // Dictionary<string, string> values;
             // string response;
@@ -313,6 +314,7 @@ namespace Grand.Plugin.Payments.PayPalStandard.Controllers
 
         public async Task<IActionResult> IPNHandler()
         {
+            return Ok();
             // string strRequest = string.Empty;
             // using (var stream = new StreamReader(Request.Body))
             // {

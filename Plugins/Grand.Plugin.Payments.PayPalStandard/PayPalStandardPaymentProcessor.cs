@@ -197,6 +197,7 @@ namespace Grand.Plugin.Payments.PayPalStandard
         /// <returns>Created query parameters</returns>
         private async Task<IDictionary<string, string>> CreateQueryParameters(PostProcessPaymentRequest postProcessPaymentRequest)
         {
+            return null;
             //get store location
             // var storeLocation = _webHelper.GetStoreLocation();
             // var stateProvince = "";
