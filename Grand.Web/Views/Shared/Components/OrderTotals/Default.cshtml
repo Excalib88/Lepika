@@ -22,32 +22,32 @@
                     </td>
                 </tr>
             }
-            <tr class="col-12 pr-0 shipping-cost d-flex justify-content-start">
-                <td class="col-6 cart-total-left">
-                    <span>@T("ShoppingCart.Totals.Shipping"):</span>
-                    @if (Model.RequiresShipping && !String.IsNullOrEmpty(Model.SelectedShippingMethod))
-                    {
-                        <span class="selected-shipping-method">@T("ShoppingCart.Totals.Shipping.Method", Model.SelectedShippingMethod)</span>
-                    }
-                </td>
-                <td class="col-6 cart-total-right  text-right">
-                    @if (Model.RequiresShipping)
-                    {
-                        if (!String.IsNullOrEmpty(Model.Shipping))
-                        {
-                            <span class="value-summary">@Model.Shipping</span>
-                        }
-                        else
-                        {
-                            <span>@T("ShoppingCart.Totals.CalculatedDuringCheckout")</span>
-                        }
-                    }
-                    else
-                    {
-                        <span>@T("ShoppingCart.Totals.Shipping.NotRequired")</span>
-                    }
-                </td>
-            </tr>
+@*             <tr class="col-12 pr-0 shipping-cost d-flex justify-content-start"> *@
+@*                 <td class="col-6 cart-total-left"> *@
+@*                     <span>@T("ShoppingCart.Totals.Shipping"):</span> *@
+@*                     @if (Model.RequiresShipping && !String.IsNullOrEmpty(Model.SelectedShippingMethod)) *@
+@*                     { *@
+@*                         <span class="selected-shipping-method">@T("ShoppingCart.Totals.Shipping.Method", Model.SelectedShippingMethod)</span> *@
+@*                     } *@
+@*                 </td> *@
+@*                 <td class="col-6 cart-total-right  text-right"> *@
+@*                     @if (Model.RequiresShipping) *@
+@*                     { *@
+@*                         if (!String.IsNullOrEmpty(Model.Shipping)) *@
+@*                         { *@
+@*                             <span class="value-summary">@Model.Shipping</span> *@
+@*                         } *@
+@*                         else *@
+@*                         { *@
+@*                             <span>@T("ShoppingCart.Totals.CalculatedDuringCheckout")</span> *@
+@*                         } *@
+@*                     } *@
+@*                     else *@
+@*                     { *@
+@*                         <span>@T("ShoppingCart.Totals.Shipping.NotRequired")</span> *@
+@*                     } *@
+@*                 </td> *@
+@*             </tr> *@
             @if (!String.IsNullOrEmpty(Model.PaymentMethodAdditionalFee))
             {
                 <tr class="col-12 pr-0 additional-fees d-flex justify-content-start">
