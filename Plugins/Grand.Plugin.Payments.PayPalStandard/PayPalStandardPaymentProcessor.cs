@@ -198,59 +198,59 @@ namespace Grand.Plugin.Payments.PayPalStandard
         private async Task<IDictionary<string, string>> CreateQueryParameters(PostProcessPaymentRequest postProcessPaymentRequest)
         {
             //get store location
-            var storeLocation = _webHelper.GetStoreLocation();
-            var stateProvince = "";
-            var countryCode = "";
-            if (!String.IsNullOrEmpty(postProcessPaymentRequest.Order.ShippingAddress?.StateProvinceId))
-            {
-                var state = (await _serviceProvider.GetRequiredService<IStateProvinceService>().GetStateProvinceById(postProcessPaymentRequest.Order.ShippingAddress?.StateProvinceId));
-                if (state != null)
-                    stateProvince = state.Abbreviation;
-            }
-            if (!String.IsNullOrEmpty(postProcessPaymentRequest.Order.ShippingAddress?.CountryId))
-            {
-                var country = await _serviceProvider.GetRequiredService<ICountryService>().GetCountryById(postProcessPaymentRequest.Order.ShippingAddress?.CountryId);
-                if (country != null)
-                    countryCode = country.TwoLetterIsoCode;
-            }
-
-
-            //create query parameters
-            return new Dictionary<string, string> {
-                //PayPal ID or an email address associated with your PayPal account
-                ["business"] = _paypalStandardPaymentSettings.BusinessEmail,
-
-                //the character set and character encoding
-                ["charset"] = "utf-8",
-
-                //set return method to "2" (the customer redirected to the return URL by using the POST method, and all payment variables are included)
-                ["rm"] = "2",
-
-                ["currency_code"] = postProcessPaymentRequest.Order.CustomerCurrencyCode,
-
-                //order identifier
-                ["invoice"] = postProcessPaymentRequest.Order.OrderNumber.ToString(),
-                ["custom"] = postProcessPaymentRequest.Order.OrderGuid.ToString(),
-
-                //PDT, IPN and cancel URL
-                ["return"] = $"{storeLocation}Plugins/PaymentPayPalStandard/PDTHandler",
-                ["notify_url"] = $"{storeLocation}Plugins/PaymentPayPalStandard/IPNHandler",
-                ["cancel_return"] = $"{storeLocation}Plugins/PaymentPayPalStandard/CancelOrder",
-
-                //shipping address, if exists
-                ["no_shipping"] = postProcessPaymentRequest.Order.ShippingStatus == ShippingStatus.ShippingNotRequired ? "1" : "2",
-                ["address_override"] = postProcessPaymentRequest.Order.ShippingStatus == ShippingStatus.ShippingNotRequired ? "0" : "1",
-                ["first_name"] = postProcessPaymentRequest.Order.ShippingAddress?.FirstName,
-                ["last_name"] = postProcessPaymentRequest.Order.ShippingAddress?.LastName,
-                ["address1"] = postProcessPaymentRequest.Order.ShippingAddress?.Address1,
-                ["address2"] = postProcessPaymentRequest.Order.ShippingAddress?.Address2,
-                ["city"] = postProcessPaymentRequest.Order.ShippingAddress?.City,
-
-                ["state"] = stateProvince,
-                ["country"] = countryCode,
-                ["zip"] = postProcessPaymentRequest.Order.ShippingAddress?.ZipPostalCode,
-                ["email"] = postProcessPaymentRequest.Order.ShippingAddress?.Email
-            };
+            // var storeLocation = _webHelper.GetStoreLocation();
+            // var stateProvince = "";
+            // var countryCode = "";
+            // if (!String.IsNullOrEmpty(postProcessPaymentRequest.Order.ShippingAddress?.StateProvinceId))
+            // {
+            //     var state = (await _serviceProvider.GetRequiredService<IStateProvinceService>().GetStateProvinceById(postProcessPaymentRequest.Order.ShippingAddress?.StateProvinceId));
+            //     if (state != null)
+            //         stateProvince = state.Abbreviation;
+            // }
+            // if (!String.IsNullOrEmpty(postProcessPaymentRequest.Order.ShippingAddress?.CountryId))
+            // {
+            //     var country = await _serviceProvider.GetRequiredService<ICountryService>().GetCountryById(postProcessPaymentRequest.Order.ShippingAddress?.CountryId);
+            //     if (country != null)
+            //         countryCode = country.TwoLetterIsoCode;
+            // }
+            //
+            //
+            // //create query parameters
+            // return new Dictionary<string, string> {
+            //     //PayPal ID or an email address associated with your PayPal account
+            //     ["business"] = _paypalStandardPaymentSettings.BusinessEmail,
+            //
+            //     //the character set and character encoding
+            //     ["charset"] = "utf-8",
+            //
+            //     //set return method to "2" (the customer redirected to the return URL by using the POST method, and all payment variables are included)
+            //     ["rm"] = "2",
+            //
+            //     ["currency_code"] = postProcessPaymentRequest.Order.CustomerCurrencyCode,
+            //
+            //     //order identifier
+            //     ["invoice"] = postProcessPaymentRequest.Order.OrderNumber.ToString(),
+            //     ["custom"] = postProcessPaymentRequest.Order.OrderGuid.ToString(),
+            //
+            //     //PDT, IPN and cancel URL
+            //     ["return"] = $"{storeLocation}Plugins/PaymentPayPalStandard/PDTHandler",
+            //     ["notify_url"] = $"{storeLocation}Plugins/PaymentPayPalStandard/IPNHandler",
+            //     ["cancel_return"] = $"{storeLocation}Plugins/PaymentPayPalStandard/CancelOrder",
+            //
+            //     //shipping address, if exists
+            //     ["no_shipping"] = postProcessPaymentRequest.Order.ShippingStatus == ShippingStatus.ShippingNotRequired ? "1" : "2",
+            //     ["address_override"] = postProcessPaymentRequest.Order.ShippingStatus == ShippingStatus.ShippingNotRequired ? "0" : "1",
+            //     ["first_name"] = postProcessPaymentRequest.Order.ShippingAddress?.FirstName,
+            //     ["last_name"] = postProcessPaymentRequest.Order.ShippingAddress?.LastName,
+            //     ["address1"] = postProcessPaymentRequest.Order.ShippingAddress?.Address1,
+            //     ["address2"] = postProcessPaymentRequest.Order.ShippingAddress?.Address2,
+            //     ["city"] = postProcessPaymentRequest.Order.ShippingAddress?.City,
+            //
+            //     ["state"] = stateProvince,
+            //     ["country"] = countryCode,
+            //     ["zip"] = postProcessPaymentRequest.Order.ShippingAddress?.ZipPostalCode,
+            //     ["email"] = postProcessPaymentRequest.Order.ShippingAddress?.Email
+            // };
         }
 
         /// <summary>
@@ -402,38 +402,38 @@ namespace Grand.Plugin.Payments.PayPalStandard
         /// <param name="postProcessPaymentRequest">Payment info required for an order processing</param>
         public async Task PostProcessPayment(PostProcessPaymentRequest postProcessPaymentRequest)
         {
-            //create common query parameters for the request
-            var queryParameters = await CreateQueryParameters(postProcessPaymentRequest);
-
-            //whether to include order items in a transaction
-            if (_paypalStandardPaymentSettings.PassProductNamesAndTotals)
-            {
-                //add order items query parameters to the request
-                var parameters = new Dictionary<string, string>(queryParameters);
-                await AddItemsParameters(parameters, postProcessPaymentRequest);
-
-                //remove null values from parameters
-                parameters = parameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
-                    .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
-
-                //ensure redirect URL doesn't exceed 2K chars to avoid "too long URL" exception
-                var redirectUrl = QueryHelpers.AddQueryString(GetPaypalUrl(), parameters);
-                if (redirectUrl.Length <= 2048)
-                {
-                    _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl);
-                    return;
-                }
-            }
-
-            //or add only an order total query parameters to the request
-            await AddOrderTotalParameters(queryParameters, postProcessPaymentRequest);
-
-            //remove null values from parameters
-            queryParameters = queryParameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
-                .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
-
-            var url = QueryHelpers.AddQueryString(GetPaypalUrl(), queryParameters);
-            _httpContextAccessor.HttpContext.Response.Redirect(url);
+            // //create common query parameters for the request
+            // var queryParameters = await CreateQueryParameters(postProcessPaymentRequest);
+            //
+            // //whether to include order items in a transaction
+            // if (_paypalStandardPaymentSettings.PassProductNamesAndTotals)
+            // {
+            //     //add order items query parameters to the request
+            //     var parameters = new Dictionary<string, string>(queryParameters);
+            //     await AddItemsParameters(parameters, postProcessPaymentRequest);
+            //
+            //     //remove null values from parameters
+            //     parameters = parameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
+            //         .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
+            //
+            //     //ensure redirect URL doesn't exceed 2K chars to avoid "too long URL" exception
+            //     var redirectUrl = QueryHelpers.AddQueryString(GetPaypalUrl(), parameters);
+            //     if (redirectUrl.Length <= 2048)
+            //     {
+            //         _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl);
+            //         return;
+            //     }
+            // }
+            //
+            // //or add only an order total query parameters to the request
+            // await AddOrderTotalParameters(queryParameters, postProcessPaymentRequest);
+            //
+            // //remove null values from parameters
+            // queryParameters = queryParameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
+            //     .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
+            //
+            // var url = QueryHelpers.AddQueryString(GetPaypalUrl(), queryParameters);
+            // _httpContextAccessor.HttpContext.Response.Redirect(url);
         }
 
         /// <summary>
