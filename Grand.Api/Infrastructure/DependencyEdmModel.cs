@@ -293,6 +293,7 @@ namespace Grand.Api.Infrastructure
             addAddress.Parameter<string>(nameof(AddressDto.Address1));
             addAddress.Parameter<string>(nameof(AddressDto.Address2));
             addAddress.Parameter<string>(nameof(AddressDto.LastName));
+            addAddress.Parameter<string>(nameof(AddressDto.Patronymic));
             addAddress.Parameter<string>(nameof(AddressDto.CountryId));
             addAddress.Parameter<string>(nameof(AddressDto.FaxNumber));
             addAddress.Parameter<string>(nameof(AddressDto.FirstName));
@@ -312,6 +313,7 @@ namespace Grand.Api.Infrastructure
             updateAddress.Parameter<string>(nameof(AddressDto.Address1));
             updateAddress.Parameter<string>(nameof(AddressDto.Address2));
             updateAddress.Parameter<string>(nameof(AddressDto.LastName));
+            updateAddress.Parameter<string>(nameof(AddressDto.Patronymic));
             updateAddress.Parameter<string>(nameof(AddressDto.CountryId));
             updateAddress.Parameter<string>(nameof(AddressDto.FaxNumber));
             updateAddress.Parameter<string>(nameof(AddressDto.FirstName));
