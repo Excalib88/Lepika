@@ -1,6 +1,6 @@
 ﻿Group: Payment methods
 FriendlyName: Оплата онлайн
-SystemName: Payments.PayPalStandard
+SystemName: Оплата онлайн
 Version: 1.33
 SupportedVersions: 4.70
 Author: grandnode team, nopcommerce team

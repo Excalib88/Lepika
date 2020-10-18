@@ -1,6 +1,6 @@
 ﻿Group: Payment methods
 FriendlyName: Оплата при доставке
-SystemName: Payments.CashOnDelivery
+SystemName: Оплата при доставке
 Version: 1.15
 SupportedVersions: 4.70
 Author: grandnode team

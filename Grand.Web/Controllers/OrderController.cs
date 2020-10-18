@@ -156,6 +156,7 @@ namespace Grand.Web.Controllers
                 return Challenge();
 
             var model = await _mediator.Send(new GetOrderDetails() { Order = order, Language = _workContext.WorkingLanguage });
+            model.PaymentLink = order.PaymentLink;
             model.PrintMode = true;
 
             return View("Details", model);

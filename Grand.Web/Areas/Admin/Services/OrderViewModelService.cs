@@ -352,6 +352,7 @@ namespace Grand.Web.Areas.Admin.Services
                     ShippingStatus = x.ShippingStatus.GetLocalizedEnum(_localizationService, _workContext),
                     CustomerEmail = x.BillingAddress?.Email,
                     CustomerId = x.CustomerId,
+                    PaymentLink = x.PaymentLink,
                     CustomerFullName = string.Format("{0} {1}", x.BillingAddress?.FirstName, x.BillingAddress?.LastName),
                     CreatedOn = _dateTimeHelper.ConvertToUserTime(x.CreatedOnUtc, DateTimeKind.Utc)
                 });
@@ -385,7 +386,7 @@ namespace Grand.Web.Areas.Admin.Services
             model.StoreName = store != null ? store.Shortcut : "Unknown";
             model.CustomerId = order.CustomerId;
             model.GenericAttributes = order.GenericAttributes;
-
+            model.PaymentLink = order.PaymentLink;
             var customer = await _customerService.GetCustomerById(order.CustomerId);
             model.CustomerInfo = customer.IsRegistered() ? customer.Email : _localizationService.GetResource("Admin.Customers.Guest");
             model.CustomerIp = order.CustomerIp;

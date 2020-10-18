@@ -1,6 +1,6 @@
 ﻿Group: Payment methods
 FriendlyName: Самовывоз
-SystemName: Payments.PayInStore
+SystemName: Самовывоз
 Version: 1.08
 SupportedVersions: 4.70
 Author: grandnode team
