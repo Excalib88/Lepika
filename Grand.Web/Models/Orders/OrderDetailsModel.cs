@@ -51,6 +51,7 @@ namespace Grand.Web.Models.Orders
         public string OrderCode { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
+        public string PaymentLink{get;set;}
         public bool CanRePostProcessPayment { get; set; }
         public Dictionary<string, object> CustomValues { get; set; }
 

@@ -187,12 +187,14 @@ Model.BillingAddress.ZipPostalCodeEnabled)
                                     </span>
                                 </li>
                             }
-                            if (!Model.PrintMode && Model.CanRePostProcessPayment)
+                            if (!Model.PrintMode && Model.CanRePostProcessPayment && !string.IsNullOrEmpty(Model.PaymentLink))
                             {
                                 @*Complete payment (for redirection payment methods)*@
                                 <li class="repost">
                                     <form asp-route="OrderDetails" method="post">
-                                        <input type="submit" name="repost-payment" value="@T("Order.RetryPayment")" class="btn btn-secondary re-order-button" />
+                                        <a href="@Model.PaymentLink" rel="noopener" target="_blank">
+                                            <input type="submit" name="repost-payment" value="@T("Order.RetryPayment")" class="btn btn-secondary re-order-button">
+                                        </a>
                                         <p class="hint">
                                             <em>@T("Order.RetryPayment.Hint")</em>
                                         </p>

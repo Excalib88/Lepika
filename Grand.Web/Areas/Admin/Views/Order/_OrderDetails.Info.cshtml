@@ -647,15 +647,11 @@
                                         Ссылка на оплату:
                                     </div>
                                     <div>
-                                        <form method="post">
-                                            <input asp-for="Id" type="text" name="orderId" disabled>
-                                            <input asp-for="PaymentLink" type="text" name="paymenturl" id="paymenturl"/>
-                                            <br/><br/>
-                                            <div style="text-align: center;">
-                                                <input type="submit" id="savePaymentUrl" class="k-button" value="Сохранить"/>
-                                            </div>
-                                        </form>
-                                        
+                                        <admin-input asp-for="PaymentLink" type="text" name="paymenturl" id="paymenturl"/>
+                                        <br/><br/>
+                                        <div style="text-align: center;">
+                                            <input type="submit" name="btnSavePaymentLink" value="@T("Admin.Common.Save")" id="btnSavePaymentLink" class="k-button" onclick="return confirm('@T("Admin.Common.AreYouSure")');" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

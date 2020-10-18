@@ -627,6 +627,24 @@ namespace Grand.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
+        [FormValueRequired("btnSavePaymentLink")]
+        public async Task<IActionResult> ChangePaymentLink(string id, OrderModel model)
+        {
+            var order = await _orderService.GetOrderById(id);
+            if (order == null)
+            {
+                return BadRequest();
+            }
+
+            order.PaymentLink = model.PaymentLink;
+            await _orderService.UpdateOrder(order);
+
+            model = new OrderModel();
+            await _orderViewModelService.PrepareOrderDetailsModel(model, order);
+            return View(model);
+        }
+        
+        [HttpPost, ActionName("Edit")]
         [FormValueRequired("btnSaveOrderStatus")]
         public async Task<IActionResult> ChangeOrderStatus(string id, OrderModel model)
         {

@@ -1,5 +1,5 @@
 ﻿Group: Payment methods
-FriendlyName: PayPal Standard
+FriendlyName: Оплата онлайн
 SystemName: Payments.PayPalStandard
 Version: 1.33
 SupportedVersions: 4.70

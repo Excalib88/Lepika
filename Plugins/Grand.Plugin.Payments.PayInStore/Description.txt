@@ -1,5 +1,5 @@
 ﻿Group: Payment methods
-FriendlyName: Pay In Store
+FriendlyName: Самовывоз
 SystemName: Payments.PayInStore
 Version: 1.08
 SupportedVersions: 4.70
