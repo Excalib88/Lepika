@@ -178,7 +178,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                     //cache indicates that the category has featured products
                     //let's load them
                     featuredProducts = (await _mediator.Send(new GetSearchProductsQuery() {
-                        PageSize = 900,
+                        PageSize = 600,
                         //PageSize = _catalogSettings.LimitOfFeaturedProducts,
                         CategoryIds = new List<string> { request.Category.Id },
                         Customer = request.Customer,
