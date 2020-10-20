@@ -4,7 +4,7 @@
 @if (!String.IsNullOrEmpty(Model.Id))
 {
     /*hide "add spec" table if no attributes are defined*/
-    if (Model.AddSpecificationAttributeModel.AvailableAttributes.Count > 0)
+    if (Model.AddSpecificationAttributeModel.AvailableAttributes.Count >= 0)
     {
 <div class="panel panel-default">
     <vc:admin-widget widget-zone="product_details_specification_attribute_details_top" additional-data="Model" />

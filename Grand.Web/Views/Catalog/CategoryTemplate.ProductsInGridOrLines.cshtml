@@ -6,7 +6,10 @@
     Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
     Html.AddMetaDescriptionParts(Model.MetaDescription);
     Html.AddMetaKeywordParts(Model.MetaKeywords);
-
+    Model.Filters = new FilterModel
+    {
+        CategoryId = Model.Id
+    };
     var canonicalUrlsEnabled = seoSettings.CanonicalUrlsEnabled;
     if (canonicalUrlsEnabled)
     {
@@ -187,5 +190,10 @@
     @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
     {
         <partial name="_FilterSpecsBox" model="Model.PagingFilteringContext.SpecificationFilter" />
+    }
+    
+    @if (true)
+    {
+        <partial name="FilterBox" model="Model.Filters"/>
     }
 }

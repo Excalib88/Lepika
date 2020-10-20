@@ -308,7 +308,8 @@ namespace Grand.Web.Models.Catalog
             {
                 Enabled = false;
                 var optionIds = filterableSpecificationAttributeOptionIds != null
-                    ? string.Join(",", filterableSpecificationAttributeOptionIds.Union(alreadyFilteredSpecOptionIds)) : string.Empty;
+                    ? string.Join(",", filterableSpecificationAttributeOptionIds.Union(alreadyFilteredSpecOptionIds))
+                    : string.Empty;
                 var cacheKey = string.Format(ModelCacheEventConst.SPECS_FILTER_MODEL_KEY, optionIds, langId);
 
                 var allFilters = await cacheManager.GetAsync(cacheKey, async () =>
@@ -325,16 +326,22 @@ namespace Grand.Web.Models.Catalog
                                 SpecificationAttributeSeName = sa.SeName,
                                 SpecificationAttributeDisplayOrder = sa.DisplayOrder,
                                 SpecificationAttributeOptionId = sao,
-                                SpecificationAttributeOptionName = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).GetLocalized(x => x.Name, langId),
-                                SpecificationAttributeOptionSeName = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).SeName,
-                                SpecificationAttributeOptionDisplayOrder = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).DisplayOrder,
-                                SpecificationAttributeOptionColorRgb = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).ColorSquaresRgb,
+                                SpecificationAttributeOptionName = sa.SpecificationAttributeOptions
+                                    .FirstOrDefault(x => x.Id == sao).GetLocalized(x => x.Name, langId),
+                                SpecificationAttributeOptionSeName = sa.SpecificationAttributeOptions
+                                    .FirstOrDefault(x => x.Id == sao).SeName,
+                                SpecificationAttributeOptionDisplayOrder = sa.SpecificationAttributeOptions
+                                    .FirstOrDefault(x => x.Id == sao).DisplayOrder,
+                                SpecificationAttributeOptionColorRgb = sa.SpecificationAttributeOptions
+                                    .FirstOrDefault(x => x.Id == sao).ColorSquaresRgb,
                             });
                         }
                     }
+
                     return _allFilters.ToList();
                 });
-                if (!allFilters.Any())
+
+            if (!allFilters.Any())
                     return;
 
                 //sort loaded options

@@ -53,12 +53,15 @@
                 </div>
             }
         </div>
-        @if (Model.AlreadyFilteredItems.Any())
+        @if (!Model.AlreadyFilteredItems.Any())
         {
             <div class="filtered-items">
                 <ul class="pl-0">
                     <li class="title">
                         @T("Filtering.SpecificationFilter.CurrentlyFilteredBy")
+                    </li>
+                    <li class="item">
+                        <strong>"Гибкость":</strong> <a class="" href="gibkiy">Да</a>
                     </li>
                     @foreach (var item in Model.AlreadyFilteredItems)
                     {

@@ -1,0 +1,62 @@
+﻿@model FilterModel
+
+@{
+    Layout = null;
+}
+@if (Model.CategoryId != "5f8c210ea1bd7e55c439472b")
+{
+    <div>
+        <form method="post" asp-controller="Catalog" asp-action="Filter">
+            <div class="container">
+                <div style="text-align: center;"><b>Фильтры</b></div>
+                <div class="row">
+                    <div class="col-9">
+                        Гибкость:
+                    </div>
+                    <div class="col-3">
+                        <admin-input asp-for="IsGibkiy"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        В наличии:
+                    </div>
+                    <div class="col-3">
+                        <admin-input asp-for="InStock"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        Наличие подсветки:
+                    </div>
+                    <div class="col-3">
+                        <admin-input asp-for="IsPodsvetka"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        Пример:
+                    </div>
+                    <div class="col-3">
+                        <admin-input asp-for="IsExample"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        Новинка:
+                    </div>
+                    <div class="col-3">
+                        <admin-input asp-for="IsNew"/>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> Применить </button>
+                <button class="btn btn-error" type="submit" name="cancel"><i class="fa fa-check"></i> Отменить </button>
+            </div>
+            <div style="visibility: hidden;">
+                <admin-input asp-for="CategoryId" value="@Model.CategoryId"/>
+            </div>
+        </form>
+    </div>
+}

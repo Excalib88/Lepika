@@ -4,6 +4,15 @@ using System.Collections.Generic;
 
 namespace Grand.Web.Models.Catalog
 {
+    public class FilterModel
+    {
+        public string CategoryId { get; set; }
+        public bool IsGibkiy { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsPodsvetka { get; set; }
+        public bool InStock { get; set; }
+        public bool IsExample { get; set; }
+    }
     public partial class CategoryModel : BaseGrandEntityModel
     {
         public CategoryModel()
@@ -16,6 +25,7 @@ namespace Grand.Web.Models.Catalog
             CategoryBreadcrumb = new List<CategoryModel>();
         }
         public string ParentCategoryId { get; set; }
+        public FilterModel Filters { get; set; } 
         public string Name { get; set; }
         public string Description { get; set; }
         public string MetaKeywords { get; set; }

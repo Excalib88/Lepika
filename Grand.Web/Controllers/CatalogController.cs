@@ -24,8 +24,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Core.Domain.Tax;
+using Grand.Web.Features.Models.Products;
 
 namespace Grand.Web.Controllers
 {
@@ -36,6 +39,7 @@ namespace Grand.Web.Controllers
         private readonly IVendorService _vendorService;
         private readonly IManufacturerService _manufacturerService;
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly ILocalizationService _localizationService;
@@ -68,7 +72,7 @@ namespace Grand.Web.Controllers
             ICustomerActivityService customerActivityService,
             ICustomerActionEventService customerActionEventService,
             IMediator mediator,
-            VendorSettings vendorSettings)
+            VendorSettings vendorSettings, IProductService productService)
         {
             _vendorService = vendorService;
             _manufacturerService = manufacturerService;
@@ -85,6 +89,7 @@ namespace Grand.Web.Controllers
             _customerActionEventService = customerActionEventService;
             _mediator = mediator;
             _vendorSettings = vendorSettings;
+            _productService = productService;
         }
 
         #endregion
@@ -114,6 +119,96 @@ namespace Grand.Web.Controllers
 
         #region Categories
 
+        public virtual async Task<IActionResult> Filter(FilterModel filterModel)
+        {
+            var category = await _categoryService.GetCategoryById(filterModel.CategoryId);
+            if (category == null)
+                return InvokeHttp404();
+
+            var customer = _workContext.CurrentCustomer;
+
+            //Check whether the current user has a "Manage catalog" permission
+            //It allows him to preview a category before publishing
+            if (!category.Published &&
+                !await _permissionService.Authorize(StandardPermissionProvider.ManageCategories, customer))
+                return InvokeHttp404();
+
+            //ACL (access control list)
+            if (!_aclService.Authorize(category, customer))
+                return InvokeHttp404();
+
+            //Store mapping
+            if (!_storeMappingService.Authorize(category))
+                return InvokeHttp404();
+
+            //'Continue shopping' URL
+            await SaveLastContinueShoppingPage(customer);
+
+            //display "edit" (manage) link
+            if (await _permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel, customer) &&
+                await _permissionService.Authorize(StandardPermissionProvider.ManageCategories, customer))
+                DisplayEditLink(Url.Action("Edit", "Category", new {id = category.Id, area = "Admin"}));
+
+            //activity log
+            await _customerActivityService.InsertActivity("PublicStore.ViewCategory", category.Id,
+                _localizationService.GetResource("ActivityLog.PublicStore.ViewCategory"), category.Name);
+            await _customerActionEventService.Viewed(customer, HttpContext.Request.Path.ToString(),
+                Request.Headers[HeaderNames.Referer].ToString() != null ? Request.Headers["Referer"].ToString() : "");
+
+            //model
+            var model = await _mediator.Send(new GetCategory() {
+                Category = category,
+                Command = new CatalogPagingFilteringModel(),
+                Currency = _workContext.WorkingCurrency,
+                Customer = _workContext.CurrentCustomer,
+                Language = _workContext.WorkingLanguage,
+                Store = _storeContext.CurrentStore
+            });
+
+
+            var productIds = model.FeaturedProducts.Select(x => x.Id).ToArray();
+            var products = await _productService.GetProductsByIds(productIds);
+            IEnumerable<Product> filter = products;
+
+            if (filterModel.IsNew)
+            {
+                filter = filter.Where(x => x.MarkAsNew);
+            }
+
+            if (filterModel.InStock)
+            {
+                filter = filter.Where(x => x.StockQuantity > 0 || x.Mark == 1);
+            }
+
+            if (filterModel.IsExample)
+            {
+                filter = filter.Where(x => x.Obrazci > 0);
+            }
+
+            if (filterModel.IsPodsvetka)
+            {
+                filter = filter.Where(x => x.Podsvetka);
+            }
+
+            if (filterModel.IsGibkiy)
+            {
+                filter = filter.Where(x => x.Gibkiy);
+            }
+
+            var productOverviews = await _mediator.Send(new GetProductOverview() {
+                PreparePictureModel = true,
+                PreparePriceModel = true,
+                ProductThumbPictureSize = null,
+                Products = filter.ToList(),
+            });
+
+            model.FeaturedProducts = productOverviews as IList<ProductOverviewModel>;
+        //template
+            var templateViewPath = await _mediator.Send(new GetCategoryTemplateViewPath() { TemplateId = category.CategoryTemplateId });
+
+            return View(templateViewPath, model);
+        }
+        
         public virtual async Task<IActionResult> Category(string categoryId, CatalogPagingFilteringModel command)
         {
             var category = await _categoryService.GetCategoryById(categoryId);

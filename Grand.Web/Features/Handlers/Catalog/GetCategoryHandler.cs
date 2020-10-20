@@ -178,7 +178,8 @@ namespace Grand.Web.Features.Handlers.Catalog
                     //cache indicates that the category has featured products
                     //let's load them
                     featuredProducts = (await _mediator.Send(new GetSearchProductsQuery() {
-                        PageSize = _catalogSettings.LimitOfFeaturedProducts,
+                        PageSize = 900,
+                        //PageSize = _catalogSettings.LimitOfFeaturedProducts,
                         CategoryIds = new List<string> { request.Category.Id },
                         Customer = request.Customer,
                         StoreId = storeId,
@@ -203,7 +204,11 @@ namespace Grand.Web.Features.Handlers.Catalog
                 categoryIds.AddRange(await _mediator.Send(new GetChildCategoryIds() { ParentCategoryId = request.Category.Id, Customer = request.Customer, Store = request.Store }));
             }
             //products
-            IList<string> alreadyFilteredSpecOptionIds = await model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_httpContextAccessor, _specificationAttributeService);
+            IList<string> alreadyFilteredSpecOptionIds = await model
+                .PagingFilteringContext
+                .SpecificationFilter
+                .GetAlreadyFilteredSpecOptionIds(_httpContextAccessor, _specificationAttributeService);
+            
             var products = (await _mediator.Send(new GetSearchProductsQuery() {
                 LoadFilterableSpecificationAttributeOptionIds = !_catalogSettings.IgnoreFilterableSpecAttributeOption,
                 CategoryIds = categoryIds,
@@ -230,7 +235,7 @@ namespace Grand.Web.Features.Handlers.Catalog
             await model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 products.filterableSpecificationAttributeOptionIds,
                 _specificationAttributeService, _webHelper, _cacheManager, request.Language.Id);
-
+            
             return model;
         }
     }
