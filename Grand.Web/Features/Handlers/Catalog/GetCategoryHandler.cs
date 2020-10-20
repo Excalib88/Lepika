@@ -163,6 +163,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                     //no value in the cache yet
                     //let's load products and cache the result (true/false)
                     featuredProducts = (await _mediator.Send(new GetSearchProductsQuery() {
+                        FilterModel = request.FilterModel,
                         PageSize = 100,
                         CategoryIds = new List<string> { request.Category.Id },
                         Customer = request.Customer,
@@ -178,7 +179,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                     //cache indicates that the category has featured products
                     //let's load them
                     featuredProducts = (await _mediator.Send(new GetSearchProductsQuery() {
-                        FilterModel = model.Filters,
+                        FilterModel = request.FilterModel,
                         PageSize = 100,
                         //PageSize = _catalogSettings.LimitOfFeaturedProducts,
                         CategoryIds = new List<string> { request.Category.Id },

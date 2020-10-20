@@ -52,7 +52,7 @@
             </div>
             <div style="text-align: center;">
                 <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> Применить </button>
-                <button class="btn btn-error" type="submit" name="cancel"><i class="fa fa-check"></i> Отменить </button>
+                <button class="btn btn-error" type="submit" formaction="@Url.Action("RemoveFilters", "Catalog")" name="cancel"><i class="fa fa-check"></i> Отменить </button>
             </div>
             <div style="visibility: hidden;">
                 <admin-input asp-for="CategoryId" value="@Model.CategoryId"/>

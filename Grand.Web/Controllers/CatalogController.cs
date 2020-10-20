@@ -119,6 +119,16 @@ namespace Grand.Web.Controllers
 
         #region Categories
 
+        public virtual async Task<IActionResult> RemoveFilters(FilterModel filterModel)
+        {
+            filterModel.InStock = false;
+            filterModel.IsExample = false;
+            filterModel.IsGibkiy = false;
+            filterModel.IsNew = false;
+            filterModel.IsPodsvetka = false;
+            return RedirectToAction("Filter", "Catalog", filterModel);
+        }
+        
         public virtual async Task<IActionResult> Filter(FilterModel filterModel)
         {
             var category = await _categoryService.GetCategoryById(filterModel.CategoryId);
@@ -162,7 +172,8 @@ namespace Grand.Web.Controllers
                 Currency = _workContext.WorkingCurrency,
                 Customer = _workContext.CurrentCustomer,
                 Language = _workContext.WorkingLanguage,
-                Store = _storeContext.CurrentStore
+                Store = _storeContext.CurrentStore,
+                FilterModel = filterModel
             });
 
 
@@ -175,7 +186,7 @@ namespace Grand.Web.Controllers
             return View(templateViewPath, model);
         }
         
-        public virtual async Task<IActionResult> Category(string categoryId, CatalogPagingFilteringModel command)
+        public virtual async Task<IActionResult> Category(string categoryId, CatalogPagingFilteringModel command = null)
         {
             var category = await _categoryService.GetCategoryById(categoryId);
             if (category == null)

@@ -1,4 +1,5 @@
-﻿using Grand.Core.Domain.Catalog;
+﻿using Amazon.S3.Model;
+using Grand.Core.Domain.Catalog;
 using Grand.Core.Domain.Customers;
 using Grand.Core.Domain.Directory;
 using Grand.Core.Domain.Localization;
@@ -15,6 +16,7 @@ namespace Grand.Web.Features.Models.Catalog
         public Language Language { get; set; }
         public Currency Currency { get; set; }
         public Category Category { get; set; }
+        public FilterModel FilterModel { get; set; }
         public CatalogPagingFilteringModel Command { get; set; }
     }
 }
