@@ -154,9 +154,9 @@ namespace Grand.Web.Controllers
                 _localizationService.GetResource("ActivityLog.PublicStore.ViewCategory"), category.Name);
             await _customerActionEventService.Viewed(customer, HttpContext.Request.Path.ToString(),
                 Request.Headers[HeaderNames.Referer].ToString() != null ? Request.Headers["Referer"].ToString() : "");
-
+                
             //model
-            var model = await _mediator.Send(new GetCategory() {
+            var model = await _mediator.Send(new GetCategory {
                 Category = category,
                 Command = new CatalogPagingFilteringModel(),
                 Currency = _workContext.WorkingCurrency,
@@ -168,41 +168,7 @@ namespace Grand.Web.Controllers
 
             var productIds = model.FeaturedProducts.Select(x => x.Id).ToArray();
             var products = await _productService.GetProductsByIds(productIds);
-            IEnumerable<Product> filter = products;
-
-            if (filterModel.IsNew)
-            {
-                filter = filter.Where(x => x.MarkAsNew);
-            }
-
-            if (filterModel.InStock)
-            {
-                filter = filter.Where(x => x.StockQuantity > 0 || x.Mark == 1);
-            }
-
-            if (filterModel.IsExample)
-            {
-                filter = filter.Where(x => x.Obrazci > 0);
-            }
-
-            if (filterModel.IsPodsvetka)
-            {
-                filter = filter.Where(x => x.Podsvetka);
-            }
-
-            if (filterModel.IsGibkiy)
-            {
-                filter = filter.Where(x => x.Gibkiy);
-            }
-
-            var productOverviews = await _mediator.Send(new GetProductOverview() {
-                PreparePictureModel = true,
-                PreparePriceModel = true,
-                ProductThumbPictureSize = null,
-                Products = filter.ToList(),
-            });
-
-            model.FeaturedProducts = productOverviews as IList<ProductOverviewModel>;
+            
         //template
             var templateViewPath = await _mediator.Send(new GetCategoryTemplateViewPath() { TemplateId = category.CategoryTemplateId });
 

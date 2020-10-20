@@ -9,7 +9,7 @@ namespace Grand.Services.Queries.Models.Catalog
     public class GetSearchProductsQuery : IRequest<(IPagedList<Product> products, IList<string> filterableSpecificationAttributeOptionIds)>
     {
         public Customer Customer { get; set; }
-
+        public FilterModel FilterModel { get; set; }
         public bool LoadFilterableSpecificationAttributeOptionIds { get; set; } = false;
         public int PageIndex { get; set; } = 0;
         public int PageSize { get; set; } = int.MaxValue;

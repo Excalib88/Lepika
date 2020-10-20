@@ -56,7 +56,7 @@ namespace Grand.Services.Queries.Handlers.Catalog
             var builder = Builders<Product>.Filter;
             var filter = FilterDefinition<Product>.Empty;
             var filterSpecification = FilterDefinition<Product>.Empty;
-
+            
             //category filtering
             if (request.CategoryIds != null && request.CategoryIds.Any())
             {
@@ -114,6 +114,36 @@ namespace Grand.Services.Queries.Handlers.Catalog
                 filter = filter & builder.Where(p => p.ProductTypeId == productTypeId);
             }
 
+            var filterModel = request.FilterModel;
+
+            if (filterModel != null)
+            {
+                if (filterModel.IsNew)
+                {
+                    filter = filter & builder.Where(x => x.MarkAsNew);
+                }
+
+                if (filterModel.InStock)
+                {
+                    filter = filter & builder.Where(x => x.StockQuantity > 0 || x.Mark == 1);
+                }
+
+                if (filterModel.IsExample)
+                {
+                    filter = filter & builder.Where(x => x.Obrazci > 0);
+                }
+
+                if (filterModel.IsPodsvetka)
+                {
+                    filter = filter & builder.Where(x => x.Podsvetka);
+                }
+
+                if (filterModel.IsGibkiy)
+                {
+                    filter = filter & builder.Where(x => x.Gibkiy);
+                }
+            }
+            
             //The function 'CurrentUtcDateTime' is not supported by SQL Server Compact. 
             //That's why we pass the date value
             var nowUtc = DateTime.UtcNow;
@@ -131,8 +161,6 @@ namespace Grand.Services.Queries.Handlers.Catalog
                 filter = filter & builder.Where(p =>
                     (p.AvailableStartDateTimeUtc == null || p.AvailableStartDateTimeUtc < nowUtc) &&
                     (p.AvailableEndDateTimeUtc == null || p.AvailableEndDateTimeUtc > nowUtc));
-
-
             }
 
             if (request.MarkedAsNewOnly)
@@ -204,31 +232,6 @@ namespace Grand.Services.Queries.Handlers.Catalog
 
             }
 
-            if(request.Gibkiy == true)
-            {
-                filter &= builder.Where(x => x.Gibkiy == request.Gibkiy);
-            }
-
-            if (request.IsPodsvetka)
-            {
-                filter &= builder.Where(x => x.Podsvetka == request.IsPodsvetka);
-            }
-
-            if (request.IsAvailability)
-            {
-                filter &= builder.Where(x => x.Mark > 0);
-            }
-
-            if (request.IsExample)
-            {
-                filter &= builder.Where(x => x.Obrazci > 0);
-            }
-
-            if (request.IsNew)
-            {
-                filter &= builder.Where(x => x.MarkAsNew == request.IsNew);
-            }
-            
             //tag filtering
             if (!string.IsNullOrEmpty(request.ProductTag))
             {

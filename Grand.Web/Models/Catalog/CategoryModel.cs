@@ -1,18 +1,10 @@
 ﻿using Grand.Framework.Mvc.Models;
 using Grand.Web.Models.Media;
 using System.Collections.Generic;
+using Grand.Core.Domain.Catalog;
 
 namespace Grand.Web.Models.Catalog
 {
-    public class FilterModel
-    {
-        public string CategoryId { get; set; }
-        public bool IsGibkiy { get; set; }
-        public bool IsNew { get; set; }
-        public bool IsPodsvetka { get; set; }
-        public bool InStock { get; set; }
-        public bool IsExample { get; set; }
-    }
     public partial class CategoryModel : BaseGrandEntityModel
     {
         public CategoryModel()
