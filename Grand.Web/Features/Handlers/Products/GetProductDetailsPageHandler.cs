@@ -139,7 +139,8 @@ namespace Grand.Web.Features.Handlers.Products
 
         public async Task<ProductDetailsModel> Handle(GetProductDetailsPage request, CancellationToken cancellationToken)
         {
-            return await PrepareProductDetailsModel(request.Store, request.Product, request.UpdateCartItem, request.IsAssociatedProduct);
+            var model = await PrepareProductDetailsModel(request.Store, request.Product, request.UpdateCartItem, request.IsAssociatedProduct);
+            return model;
         }
 
         private async Task<ProductDetailsModel> PrepareProductDetailsModel(Store store, Product product, ShoppingCartItem updateCartItem, bool isAssociatedProduct)
@@ -226,7 +227,7 @@ namespace Grand.Web.Features.Handlers.Products
             #region Product price
 
             model.ProductPrice = await PrepareProductPriceModel(product);
-            model.StockQuantity = product.StockQuantity;
+            model.StockQuantity = product.Mark == 1 ? 10000 : 0;
             #endregion
 
             #region 'Add to cart' model
@@ -363,6 +364,7 @@ namespace Grand.Web.Features.Handlers.Products
                 ManufacturerPartNumber = product.ManufacturerPartNumber,
                 ShowGtin = _catalogSettings.ShowGtin,
                 Gtin = product.Gtin,
+                StockQuantity = product.Mark == 1 ? 10000 : 0,
                 StockAvailability = product.FormatStockMessage(warehouseId, "", _localizationService, _productAttributeParser),
                 GenericAttributes = product.GenericAttributes,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
