@@ -226,7 +226,7 @@ namespace Grand.Web.Features.Handlers.Products
             #region Product price
 
             model.ProductPrice = await PrepareProductPriceModel(product);
-
+            model.StockQuantity = product.StockQuantity;
             #endregion
 
             #region 'Add to cart' model

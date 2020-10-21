@@ -34,6 +34,7 @@ namespace Grand.Web.Models.Catalog
         }
         //picture(s)
         public bool DefaultPictureZoomEnabled { get; set; }
+        public int StockQuantity { get; set; }
         public PictureModel DefaultPictureModel { get; set; }
         public IList<PictureModel> PictureModels { get; set; }
         public ProductType ProductType { get; set; }

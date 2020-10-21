@@ -83,6 +83,15 @@
                     { 
                         <partial name="_ProductManufacturers" model="Model.ProductManufacturers" />
                     }
+                    <span class="label">Наличие:</span>
+                    @if (Model.StockQuantity > 0)
+                    {
+                        <span class="value" style="color:green;">В наличии</span>   
+                    }
+                    else
+                    {
+                        <span class="value" style="color:orange;">Под заказ</span>
+                    }
                     <!--availability-->
                     @if (!String.IsNullOrWhiteSpace(Model.StockAvailability) || Model.DisplayBackInStockSubscription)
                     {
