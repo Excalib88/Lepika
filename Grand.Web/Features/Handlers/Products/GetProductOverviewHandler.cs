@@ -99,7 +99,7 @@ namespace Grand.Web.Features.Handlers.Products
             {
                 tasks.Add(GetProductOverviewModel(product, request, displayPrices, enableShoppingCart, enableWishlist, pictureSize, priceIncludesTax, res));
             }
-            var result = await Task.WhenAll<ProductOverviewModel>(tasks);
+            var result = await Task.WhenAll(tasks);
             return result;
         }
 
@@ -107,7 +107,23 @@ namespace Grand.Web.Features.Handlers.Products
         private async Task<ProductOverviewModel> GetProductOverviewModel(Product product, GetProductOverview request,
             bool displayPrices, bool enableShoppingCart, bool enableWishlist, int pictureSize, bool priceIncludesTax, Dictionary<string, string> res)
         {
+            // if (!string.IsNullOrEmpty(product.UseWith))
+            // {
+            //     var relates = product.UseWith.Split(";");
+            //     foreach (var relate in relates)
+            //     {
+            //         var products = await _productService.GetAllProductsDisplayedOnHomePage();
+            //         
+            //         product.RelatedProducts.Add(new RelatedProduct {
+            //             ProductId1 =  products.FirstOrDefault(x => x.ImportId == relate)?.Id
+            //         });
+            //     }
+            // }
+            
             var model = PrepareProductOverviewModel(product);
+            
+            
+            //model.product.UseWith;
             //price
             if (request.PreparePriceModel)
             {

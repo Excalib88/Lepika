@@ -26,7 +26,15 @@ namespace Grand.Api.DTOs.Catalog
         }
         [BsonElement("ProductTypeId")]
         public ProductType ProductType { get; set; }
-
+        public string Analogs { get; set; }
+        public string WeightMeasure { get; set; }
+        public string[] Model { get; set; }
+        public string Measure { get; set; }
+        public string LWHMeasure { get; set; }
+        public bool IsDelete { get; set; }
+        public string ImportId { get; set; }
+        public string Collection { get; set; }
+        public string Razdel { get; set; }
         public string VendorCode { get; set; }
         public string Article { get; set; }
         public string ParentGroupedProductId { get; set; }
@@ -168,5 +176,6 @@ namespace Grand.Api.DTOs.Catalog
         public int QuantityInBox { get; set; }
         public string Material { get; set; }
         public int Mark { get; set; }
+        public string UseWith { get; set; }
     }
 }

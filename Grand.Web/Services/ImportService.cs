@@ -75,16 +75,29 @@ namespace Grand.Web.Services
         {
             var directory = Path.Combine(Directory.GetCurrentDirectory(), "App_Data", "Import");
             var productQty = 0;
+            var updatedProduct = 0;
             
             foreach (var sourceProduct in importSourceProducts.ProductDto)
             {
                 var queryProduct = from c in _productRepository.Table 
-                    where c.VendorCode == sourceProduct.Article  
+                    where c.VendorCode == sourceProduct.Article || 
+                          c.Price == sourceProduct.Price && 
+                          c.FullDescription == sourceProduct.Description &&
+                          c.Name == sourceProduct.Name
                     select c;
+                var productResult = IAsyncCursorSourceExtensions.FirstOrDefault(queryProduct);
+                var isExistedProduct = productResult != null;
 
-                var isExistedProduct = IAsyncCursorSourceExtensions.FirstOrDefault(queryProduct) != null;
-                
-                if(isExistedProduct) continue;
+                if (isExistedProduct)
+                {
+                    if (productResult.Razdel != sourceProduct.Razdel)
+                    {
+                        productResult.Razdel = sourceProduct.Razdel;
+                        await _productRepository.UpdateAsync(productResult);
+                        updatedProduct++;
+                    }
+                    continue;
+                }
 
                 var stock = importSourceProducts.Stock
                     .FirstOrDefault(x => x.Id == sourceProduct.Id)?.Stock;
@@ -110,13 +123,18 @@ namespace Grand.Web.Services
                     Podsvetka = sourceProduct.Podsvetka == 1,
                     QuantityInBox = sourceProduct.QuantityInBox,
                     Material = sourceProduct.Material,
-                    Mark = sourceProduct.Mark
+                    Mark = sourceProduct.Mark,
+                    Collection = sourceProduct.Collection,
+                    Razdel = sourceProduct.Razdel,
+                    UseWith = sourceProduct.UseWith,
+                    Analogs = sourceProduct.Analogs,
+                    
                 };
                 
                 var queryCategory = from c in _categoryRepository.Table 
                     where c.Name == sourceProduct.Category  
                     select c;
-
+                
                 var isExistedCategory = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategory) != null;
 
                 var categoryDto = new CategoryDto();
@@ -238,7 +256,8 @@ namespace Grand.Web.Services
                 await _logger.InsertLog(LogLevel.Information, $"Добавлен товар №{productQty}");
                 productQty++;
             }
-            
+
+            await _logger.InsertLog(LogLevel.Information, updatedProduct.ToString());
             return _productDtos;
         }
     }

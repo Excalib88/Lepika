@@ -236,6 +236,22 @@ namespace Grand.Services.Catalog
             return products;
         }
 
+        public virtual async Task<Product> GetByImportId(string importId)
+        {
+            var builder = Builders<Product>.Filter;
+            var filter = builder.Eq(x => x.Published, true);
+            filter &= builder.Eq(x => x.ImportId, importId);
+            
+            var query = _productRepository.Collection.Find(filter).SortBy(x => x.DisplayOrder).ThenBy(x => x.Name);
+
+            var products = await query.ToListAsync();
+
+            //ACL and store mapping
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+
+            return products.FirstOrDefault(p => p.IsAvailable());
+        }
+
         /// <summary>
         /// Gets product
         /// </summary>

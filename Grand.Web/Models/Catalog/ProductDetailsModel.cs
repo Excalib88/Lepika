@@ -71,7 +71,20 @@ namespace Grand.Web.Models.Catalog
         public bool IncBothDate { get; set; }
         public List<SelectListItem> Parameters { get; set; }
         public DateTime StartDate { get; set; }
-
+        
+        // custom fields
+        public string ImportId { get; set; }
+        public string Colleciton { get; set; }
+        public string WithIn { get; set; }
+        public bool Gibkiy { get; set; }
+        public int Obrazci { get; set; }
+        public bool Podsvetka { get; set; }
+        public int QuantityInBox { get; set; }
+        public string Material { get; set; }
+        public int Mark { get; set; }
+        public string Collection { get; set; }
+        public string Razdel { get; set; }
+        
         public string StockAvailability { get; set; }
         public bool DisplayBackInStockSubscription { get; set; }
         public bool EmailAFriendEnabled { get; set; }

@@ -33,6 +33,13 @@ namespace Grand.Core.Domain.Catalog
             Stores = new List<string>();
         }
 
+        public string ImportId { get; set; }
+        public string Analogs { get; set; }
+        public string WeightMeasure { get; set; }
+        public string[] Model { get; set; }
+        public string Measure { get; set; }
+        public string LWHMeasure { get; set; }
+        public bool IsDelete { get; set; }
         /// <summary>
         /// Gets or sets the product type identifier
         /// </summary>
@@ -53,6 +60,12 @@ namespace Grand.Core.Domain.Catalog
         /// </summary>
         public string Name { get; set; }
         public int Mark { get; set; }
+        
+        public string Collection { get; set; }
+        
+        public string Razdel { get; set; }
+        public string UseWith { get; set; }
+        
         /// <summary>
         /// Артикул товара
         /// </summary>

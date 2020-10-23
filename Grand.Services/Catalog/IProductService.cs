@@ -16,6 +16,8 @@ namespace Grand.Services.Catalog
     {
         #region Products
 
+        Task<Product> GetByImportId(string importId);
+        
         /// <summary>
         /// Delete a product
         /// </summary>

@@ -20,7 +20,7 @@ namespace Grand.Web.Commands.Models.Import
         public string Article { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }
-        public string Cpollection { get; set; }
+        public string Collection { get; set; }
         public string CutImage { get; set; }
         public string Description { get; set; }
         public int Gibkiy { get; set; }
