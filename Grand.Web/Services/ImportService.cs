@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -11,6 +10,8 @@ using Grand.Api.DTOs.Common;
 using Grand.Core.Data;
 using Grand.Core.Domain.Catalog;
 using Grand.Core.Domain.Logging;
+using Grand.Core.Domain.Media;
+using Grand.Core.Domain.Seo;
 using Grand.Services.Catalog;
 using Grand.Services.Logging;
 using Grand.Web.Commands.Models.Import;
@@ -18,6 +19,7 @@ using Grand.Web.Extensions;
 using MediatR;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using Unidecode.NET;
 
 namespace Grand.Web.Services
 {
@@ -26,9 +28,11 @@ namespace Grand.Web.Services
         private readonly List<ProductDto> _productDtos;
         private readonly IMediator _mediator;
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<UrlRecord> _urlRecordRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Manufacturer> _manufacturerRepository;
         private readonly IProductService _productService;
+        private readonly IRepository<Picture> _pictureRepository;
         private readonly IManufacturerService _manufacturerService;
         private readonly ICategoryService _categoryService;
         private readonly ILogger _logger;
@@ -41,7 +45,8 @@ namespace Grand.Web.Services
             IProductService productService, 
             IManufacturerService manufacturerService, 
             ICategoryService categoryService, 
-            ILogger logger)
+            IRepository<Picture> pictureRepository,
+            ILogger logger, IRepository<UrlRecord> urlRecordRepository)
         {
             _mediator = mediator;
             _categoryRepository = categoryRepository;
@@ -50,7 +55,9 @@ namespace Grand.Web.Services
             _productService = productService;
             _manufacturerService = manufacturerService;
             _categoryService = categoryService;
+            _pictureRepository = pictureRepository;
             _logger = logger;
+            _urlRecordRepository = urlRecordRepository;
             _productDtos = new List<ProductDto>();
         }
 
@@ -90,12 +97,19 @@ namespace Grand.Web.Services
 
                 if (isExistedProduct)
                 {
-                    if (productResult.Razdel != sourceProduct.Razdel)
-                    {
-                        productResult.Razdel = sourceProduct.Razdel;
-                        await _productRepository.UpdateAsync(productResult);
-                        updatedProduct++;
-                    }
+                    var translitedUrl = productResult.SeName.Unidecode();
+                    var queryUrl = from url in _urlRecordRepository.Table
+                        where url.Slug == productResult.SeName
+                        select url;
+                    
+                    var urlRecord = IAsyncCursorSourceExtensions.FirstOrDefault(queryUrl);
+                    urlRecord.Slug = translitedUrl;
+                    productResult.SeName = translitedUrl;
+
+                    await _urlRecordRepository.UpdateAsync(urlRecord);
+                    await _productRepository.UpdateAsync(productResult);
+                    updatedProduct++;
+                    
                     continue;
                 }
 
@@ -105,6 +119,7 @@ namespace Grand.Web.Services
                 var product = new ProductDto 
                 {
                     Name = sourceProduct.Name,
+                    SeName = sourceProduct.Name.Replace(' ', '-').ToLower().Unidecode(),
                     VendorCode = sourceProduct.Article,
                     FullDescription = sourceProduct.Description,
                     ShortDescription = sourceProduct.Description,
@@ -127,8 +142,7 @@ namespace Grand.Web.Services
                     Collection = sourceProduct.Collection,
                     Razdel = sourceProduct.Razdel,
                     UseWith = sourceProduct.UseWith,
-                    Analogs = sourceProduct.Analogs,
-                    
+                    Analogs = sourceProduct.Analogs
                 };
                 
                 var queryCategory = from c in _categoryRepository.Table 

@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
+    <PackageReference Include="Unidecode.NET" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\**" CopyToPublishDirectory="PreserveNewest" Exclude="App_Data\appsettings.json;App_Data\DataProtectionKeys\*.xml;App_Data\Settings.txt;App_Data\InstalledPlugins.txt;App_Data\Import\images\**" />
