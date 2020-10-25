@@ -212,6 +212,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                 .GetAlreadyFilteredSpecOptionIds(_httpContextAccessor, _specificationAttributeService);
             
             var products = (await _mediator.Send(new GetSearchProductsQuery() {
+                FilterModel = request.FilterModel,
                 LoadFilterableSpecificationAttributeOptionIds = !_catalogSettings.IgnoreFilterableSpecAttributeOption,
                 CategoryIds = categoryIds,
                 Customer = request.Customer,
