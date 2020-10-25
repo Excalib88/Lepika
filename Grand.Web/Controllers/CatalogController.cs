@@ -219,7 +219,7 @@ namespace Grand.Web.Controllers
             await _customerActionEventService.Viewed(customer, HttpContext.Request.Path.ToString(), Request.Headers[HeaderNames.Referer].ToString() != null ? Request.Headers["Referer"].ToString() : "");
 
             //model
-            var model = await _mediator.Send(new GetCategory() {
+            var model = await _mediator.Send(new GetCategory {
                 Category = category,
                 Command = command,
                 Currency = _workContext.WorkingCurrency,

@@ -83,7 +83,7 @@
                     <div class="col-md-4 col-6 mb-2">
                         <div class="card p-0">
                             <div class="list-picture">
-                                <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                <a href="@Url.RouteUrl("Category", new {item.SeName })" title="@item.PictureModel.Title">
                                     <img class="img-fluid" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
                                 </a>
                             </div>
@@ -102,7 +102,7 @@
     }
     @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_before_featured_products", additionalData = Model.Id })
     @*featured products*@
-    @if (Model.FeaturedProducts.Any())
+    @if (Model.FeaturedProducts.Any() && !Model.Products.Any())
     {
         <div class="page-separator"></div>
         <div class="col-12 product-grid customGrid text-center featured-product-grid px-0">

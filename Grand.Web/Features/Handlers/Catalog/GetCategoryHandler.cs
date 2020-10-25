@@ -217,20 +217,20 @@ namespace Grand.Web.Features.Handlers.Catalog
                 Customer = request.Customer,
                 StoreId = storeId,
                 VisibleIndividuallyOnly = true,
-                FeaturedProducts = _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                FeaturedProducts = true,//_catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
                 PriceMin = minPriceConverted,
                 PriceMax = maxPriceConverted,
                 FilteredSpecs = alreadyFilteredSpecOptionIds,
                 OrderBy = (ProductSortingEnum)request.Command.OrderBy,
                 PageIndex = request.Command.PageNumber - 1,
                 PageSize = request.Command.PageSize
-            }));
+            }, cancellationToken));
 
             model.Products = (await _mediator.Send(new GetProductOverview() {
                 PrepareSpecificationAttributes = _catalogSettings.ShowSpecAttributeOnCatalogPages,
                 Products = products.products,
             })).ToList();
-
+            
             model.PagingFilteringContext.LoadPagedList(products.products);
 
             //specs
