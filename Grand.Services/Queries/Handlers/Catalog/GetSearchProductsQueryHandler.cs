@@ -327,7 +327,7 @@ namespace Grand.Services.Queries.Handlers.Catalog
             }
 
             var count = await _productRepository.Collection.CountDocumentsAsync(FilterDefinition<Product>.Empty);
-            request.PageSize = 100;
+            request.PageSize = 30;
             var products = await PagedList<Product>.Create(_productRepository.Collection, filter, builderSort, request.PageIndex, request.PageSize);
 
             if (request.LoadFilterableSpecificationAttributeOptionIds && !_catalogSettings.IgnoreFilterableSpecAttributeOption)

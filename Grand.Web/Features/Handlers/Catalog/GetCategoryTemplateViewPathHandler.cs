@@ -4,6 +4,7 @@ using Grand.Web.Features.Models.Catalog;
 using Grand.Web.Infrastructure.Cache;
 using MediatR;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,7 +28,10 @@ namespace Grand.Web.Features.Handlers.Catalog
             var templateCacheKey = string.Format(ModelCacheEventConst.CATEGORY_TEMPLATE_MODEL_KEY, request.TemplateId);
             var templateViewPath = await _cacheManager.GetAsync(templateCacheKey, async () =>
             {
+                var stopWatch = new Stopwatch();
+                stopWatch.Start();
                 var template = await _categoryTemplateService.GetCategoryTemplateById(request.TemplateId);
+                stopWatch.Stop();
                 if (template == null)
                     template = (await _categoryTemplateService.GetAllCategoryTemplates()).FirstOrDefault();
                 if (template == null)

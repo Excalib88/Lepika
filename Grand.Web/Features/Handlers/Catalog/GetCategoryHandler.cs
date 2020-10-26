@@ -18,6 +18,7 @@ using Grand.Web.Models.Media;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,6 +70,8 @@ namespace Grand.Web.Features.Handlers.Catalog
 
         public async Task<CategoryModel> Handle(GetCategory request, CancellationToken cancellationToken)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var model = request.Category.ToModel(request.Language);
             var customer = request.Customer;
             var storeId = request.Store.Id;
@@ -164,7 +167,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                     //let's load products and cache the result (true/false)
                     featuredProducts = (await _mediator.Send(new GetSearchProductsQuery() {
                         FilterModel = request.FilterModel,
-                        PageSize = 100,
+                        PageSize = 30,
                         CategoryIds = new List<string> { request.Category.Id },
                         Customer = request.Customer,
                         StoreId = storeId,
@@ -180,7 +183,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                     //let's load them
                     featuredProducts = (await _mediator.Send(new GetSearchProductsQuery() {
                         FilterModel = request.FilterModel,
-                        PageSize = 100,
+                        PageSize = 30,
                         //PageSize = _catalogSettings.LimitOfFeaturedProducts,
                         CategoryIds = new List<string> { request.Category.Id },
                         Customer = request.Customer,
@@ -238,6 +241,8 @@ namespace Grand.Web.Features.Handlers.Catalog
             await model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 products.filterableSpecificationAttributeOptionIds,
                 _specificationAttributeService, _webHelper, _cacheManager, request.Language.Id);
+            
+            stopWatch.Stop();
             
             return model;
         }

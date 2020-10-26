@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Grand.Core.Domain.Tax;
@@ -188,6 +189,8 @@ namespace Grand.Web.Controllers
         
         public virtual async Task<IActionResult> Category(string categoryId, CatalogPagingFilteringModel command = null)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             var category = await _categoryService.GetCategoryById(categoryId);
             if (category == null)
                 return InvokeHttp404();
@@ -228,9 +231,10 @@ namespace Grand.Web.Controllers
                 Store = _storeContext.CurrentStore
             });
 
+            
             //template
             var templateViewPath = await _mediator.Send(new GetCategoryTemplateViewPath() { TemplateId = category.CategoryTemplateId });
-
+            stopWatch.Stop();
             return View(templateViewPath, model);
         }
 
