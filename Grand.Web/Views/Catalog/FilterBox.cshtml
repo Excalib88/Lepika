@@ -9,6 +9,29 @@
         <form method="post" asp-controller="Catalog" asp-action="Filter">
             <div class="container">
                 <div style="text-align: center;"><b>Фильтры</b></div>
+                <div>
+                    <div class="row">
+                        <div class="col-9">
+                            Все
+                        </div>
+                        <div class="col-3">
+                            @Html.RadioButtonFor(m => m.InteriorFacade, "Все", new {@checked="checked"})
+                        </div>
+                        <div class="col-9">
+                            Интерьер
+                        </div>
+                        <div class="col-3">
+                            @Html.RadioButtonFor(m => m.InteriorFacade, "Интерьер")
+                        </div>
+                        <div class="col-9">
+                            Фасад
+                        </div>
+                        <div class="col-3">
+                            @Html.RadioButtonFor(m => m.InteriorFacade, "Фасад")
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="col-9">
                         Гибкость:

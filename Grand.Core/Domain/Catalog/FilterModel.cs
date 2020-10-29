@@ -8,5 +8,6 @@
         public bool IsPodsvetka { get; set; }
         public bool InStock { get; set; }
         public bool IsExample { get; set; }
+        public string InteriorFacade { get; set; } = "Все";
     }
 }

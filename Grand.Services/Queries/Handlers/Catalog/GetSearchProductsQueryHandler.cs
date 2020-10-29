@@ -118,6 +118,10 @@ namespace Grand.Services.Queries.Handlers.Catalog
 
             if (filterModel != null)
             {
+                if (!string.IsNullOrEmpty(filterModel.InteriorFacade) && filterModel.InteriorFacade != "Все")
+                {
+                    filter = filter & builder.Where(x => x.Razdel == filterModel.InteriorFacade);
+                }
                 if (filterModel.IsNew)
                 {
                     filter = filter & builder.Where(x => x.MarkAsNew);

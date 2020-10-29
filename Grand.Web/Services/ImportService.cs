@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -83,6 +84,8 @@ namespace Grand.Web.Services
             var directory = Path.Combine(Directory.GetCurrentDirectory(), "App_Data", "Import");
             var productQty = 0;
             var updatedProduct = 0;
+            var csvStringCategory = "Название;Артикул" + Environment.NewLine;
+            var csvStringManufacturer = "Название;Артикул" + Environment.NewLine;
             
             foreach (var sourceProduct in importSourceProducts.ProductDto)
             {
@@ -97,18 +100,34 @@ namespace Grand.Web.Services
 
                 if (isExistedProduct)
                 {
-                    var translitedUrl = productResult.SeName.Unidecode();
-                    var queryUrl = from url in _urlRecordRepository.Table
-                        where url.Slug == productResult.SeName
-                        select url;
+                    // if (productResult.ProductCategories.FirstOrDefault(x =>
+                    //     x.CategoryId == "5f8c2300d2ad97447818e69d") != null) 
+                    // {
+                    //     csvStringCategory += $"{productResult.Name};{productResult.VendorCode}{Environment.NewLine}";
+                    // }
+                    //
+                    // if(productResult.ProductManufacturers.FirstOrDefault(x=>
+                    //     x.ManufacturerId == "5f74f992e899bf53c402a416") != null)
+                    // {
+                    //     csvStringManufacturer += $"{productResult.Name};{productResult.VendorCode}{Environment.NewLine}";
+                    // }
+                    // continue;
+                    // if (productResult.SeName.Contains("'"))
+                    // {
+                    //     var translitedUrl = productResult.SeName.Unidecode().Replace("'", "");
+                    //     var queryUrl = from url in _urlRecordRepository.Table
+                    //         where url.Slug == productResult.SeName
+                    //         select url;
+                    //
+                    //     var urlRecord = IAsyncCursorSourceExtensions.FirstOrDefault(queryUrl);
+                    //     urlRecord.Slug = translitedUrl;
+                    //     productResult.SeName = translitedUrl;
+                    //
+                    //     await _urlRecordRepository.UpdateAsync(urlRecord);
+                    //     await _productRepository.UpdateAsync(productResult);
+                    //     updatedProduct++;
+                    // }
                     
-                    var urlRecord = IAsyncCursorSourceExtensions.FirstOrDefault(queryUrl);
-                    urlRecord.Slug = translitedUrl;
-                    productResult.SeName = translitedUrl;
-
-                    await _urlRecordRepository.UpdateAsync(urlRecord);
-                    await _productRepository.UpdateAsync(productResult);
-                    updatedProduct++;
                     
                     continue;
                 }
@@ -272,7 +291,10 @@ namespace Grand.Web.Services
             }
 
             await _logger.InsertLog(LogLevel.Information, updatedProduct.ToString());
-            return _productDtos;
+            
+            // await File.WriteAllTextAsync(@"C:\projects\Gaudi\ProductsWithoutCategories.csv", csvStringCategory);
+            // await File.WriteAllTextAsync(@"C:\projects\Gaudi\ProductsWithoutManufacturers.csv", csvStringManufacturer);
+             return _productDtos;
         }
     }
 }

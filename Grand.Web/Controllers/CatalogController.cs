@@ -127,6 +127,7 @@ namespace Grand.Web.Controllers
             filterModel.IsGibkiy = false;
             filterModel.IsNew = false;
             filterModel.IsPodsvetka = false;
+            filterModel.InteriorFacade = "Все";
             return RedirectToAction("Filter", "Catalog", filterModel);
         }
         
@@ -165,7 +166,9 @@ namespace Grand.Web.Controllers
                 _localizationService.GetResource("ActivityLog.PublicStore.ViewCategory"), category.Name);
             await _customerActionEventService.Viewed(customer, HttpContext.Request.Path.ToString(),
                 Request.Headers[HeaderNames.Referer].ToString() != null ? Request.Headers["Referer"].ToString() : "");
-                
+
+            
+            
             //model
             var model = await _mediator.Send(new GetCategory {
                 Category = category,
@@ -176,7 +179,6 @@ namespace Grand.Web.Controllers
                 Store = _storeContext.CurrentStore,
                 FilterModel = filterModel
             });
-
 
             var productIds = model.FeaturedProducts.Select(x => x.Id).ToArray();
             var products = await _productService.GetProductsByIds(productIds);
