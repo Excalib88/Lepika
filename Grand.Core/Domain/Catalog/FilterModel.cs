@@ -9,5 +9,7 @@
         public bool InStock { get; set; }
         public bool IsExample { get; set; }
         public string InteriorFacade { get; set; } = "Все";
+        public int PriceMore{ get; set; }
+        public int PriceLess { get; set; } = 280000;
     }
 }

@@ -3,8 +3,10 @@
 @{
     Layout = null;
 }
+
 @if (Model.CategoryId != "5f8c210ea1bd7e55c439472b")
 {
+    Html.AddCssFileParts(ResourceLocation.Head, "~/Plugins/Widgets.Slider/Content/style.css");
     <div>
         <form method="post" asp-controller="Catalog" asp-action="Filter">
             <div class="container">
@@ -33,6 +35,20 @@
                 </div>
                 
                 <div class="row">
+                    <div class="col-12">
+                        Цена, р
+                    </div>
+                </div>
+                <div>
+                    <div style="padding-top:10px;">
+                        <admin-input asp-for="PriceMore"/>
+                    </div>
+                    <div style="padding-top:10px;">
+                        <admin-input  asp-for="PriceLess"/>
+                    </div> 
+                </div>
+                
+                <div class="row" style="padding-top:10px;">
                     <div class="col-9">
                         Гибкость:
                     </div>

@@ -28,8 +28,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Core.Data;
 using Grand.Core.Domain.Tax;
 using Grand.Web.Features.Models.Products;
+using MongoDB.Driver.Linq;
 
 namespace Grand.Web.Controllers
 {
@@ -52,7 +54,8 @@ namespace Grand.Web.Controllers
         private readonly ICustomerActivityService _customerActivityService;
         private readonly ICustomerActionEventService _customerActionEventService;
         private readonly IMediator _mediator;
-
+        private readonly IRepository<Category> _categoryRepo;
+        
         private readonly VendorSettings _vendorSettings;
 
         #endregion
@@ -72,6 +75,7 @@ namespace Grand.Web.Controllers
             IPermissionService permissionService,
             ICustomerActivityService customerActivityService,
             ICustomerActionEventService customerActionEventService,
+            IRepository<Category> categoryRepo, 
             IMediator mediator,
             VendorSettings vendorSettings, IProductService productService)
         {
@@ -89,6 +93,7 @@ namespace Grand.Web.Controllers
             _customerActivityService = customerActivityService;
             _customerActionEventService = customerActionEventService;
             _mediator = mediator;
+            _categoryRepo = categoryRepo;
             _vendorSettings = vendorSettings;
             _productService = productService;
         }
@@ -128,6 +133,9 @@ namespace Grand.Web.Controllers
             filterModel.IsNew = false;
             filterModel.IsPodsvetka = false;
             filterModel.InteriorFacade = "Все";
+            filterModel.PriceMore = 0;
+            filterModel.PriceLess = 280000;
+            
             return RedirectToAction("Filter", "Catalog", filterModel);
         }
         
@@ -136,7 +144,7 @@ namespace Grand.Web.Controllers
             var category = await _categoryService.GetCategoryById(filterModel.CategoryId);
             if (category == null)
                 return InvokeHttp404();
-
+            
             var customer = _workContext.CurrentCustomer;
 
             //Check whether the current user has a "Manage catalog" permission
@@ -180,8 +188,8 @@ namespace Grand.Web.Controllers
                 FilterModel = filterModel
             });
 
-            var productIds = model.FeaturedProducts.Select(x => x.Id).ToArray();
-            var products = await _productService.GetProductsByIds(productIds);
+            //var productIds = model.FeaturedProducts.Select(x => x.Id).ToArray();
+            //var products = await _productService.GetProductsByIds(productIds);
             
         //template
             var templateViewPath = await _mediator.Send(new GetCategoryTemplateViewPath() { TemplateId = category.CategoryTemplateId });
