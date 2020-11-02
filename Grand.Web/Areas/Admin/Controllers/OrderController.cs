@@ -28,6 +28,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grand.Services.Messages;
 
 namespace Grand.Web.Areas.Admin.Controllers
 {
@@ -37,6 +38,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         #region Fields
 
         private readonly IOrderViewModelService _orderViewModelService;
+        private readonly IWorkflowMessageService _workflowMessageService;
         private readonly IOrderService _orderService;
         private readonly IOrderProcessingService _orderProcessingService;
         private readonly ILocalizationService _localizationService;
@@ -56,7 +58,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             IWorkContext workContext,
             IPdfService pdfService,
             IExportManager exportManager,
-            IMediator mediator)
+            IMediator mediator, IWorkflowMessageService workflowMessageService)
         {
             _orderViewModelService = orderViewModelService;
             _orderService = orderService;
@@ -66,6 +68,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             _pdfService = pdfService;
             _exportManager = exportManager;
             _mediator = mediator;
+            _workflowMessageService = workflowMessageService;
         }
 
         #endregion
@@ -639,7 +642,8 @@ namespace Grand.Web.Areas.Admin.Controllers
 
             order.PaymentLink = model.PaymentLink;
             await _orderService.UpdateOrder(order);
-
+            await _workflowMessageService.SendPaymentLink(order);
+            
             model = new OrderModel();
             await _orderViewModelService.PrepareOrderDetailsModel(model, order);
             return View(model);
