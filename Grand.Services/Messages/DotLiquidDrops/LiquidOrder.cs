@@ -59,6 +59,9 @@ namespace Grand.Services.Messages.DotLiquidDrops
             get { return _order.BillingAddress.FirstName; }
         }
 
+        public string PaymentLink {
+            get { return _order.PaymentLink; }
+        }
         public string BillingLastName {
             get { return _order.BillingAddress.LastName; }
         }

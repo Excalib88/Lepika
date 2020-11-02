@@ -311,6 +311,7 @@ namespace Grand.Services.Commands.Handlers.Messages
                 liquidOrder.Shipping = _cusShipTotal;
                 liquidOrder.Discount = _cusDiscount;
                 liquidOrder.PaymentMethodAdditionalFee = _cusPaymentMethodAdditionalFee;
+
                 liquidOrder.Tax = _cusTaxTotal;
                 liquidOrder.Total = _cusTotal;
                 liquidOrder.DisplayTax = _displayTax;
