@@ -36,6 +36,7 @@ namespace Grand.Services.Messages.DotLiquidDrops
 
         public string TotalPrice { get; set; }
 
+        public string PaymentLink { get; set; }
 
         public string ProductSku { get; set; }
 

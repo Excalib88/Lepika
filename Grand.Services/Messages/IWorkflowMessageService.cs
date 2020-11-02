@@ -78,6 +78,13 @@ namespace Grand.Services.Messages
         #region Order workflow
 
         /// <summary>
+        /// Отправка ссылки на оплату по почте
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        Task<int> SendPaymentLink(Order order);
+
+        /// <summary>
         /// Sends an order placed notification to a vendor
         /// </summary>
         /// <param name="order">Order instance</param>

@@ -364,8 +364,9 @@ namespace Grand.Web.Areas.Admin.Services
         {
             var order = await _orderService.GetOrderById(orderId);
             order.PaymentLink = link;
-            
+
             await _orderService.UpdateOrder(order);
+            await _workflowMessageService.SendPaymentLink(order);
         }
         
         public virtual async Task PrepareOrderDetailsModel(OrderModel model, Order order)

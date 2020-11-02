@@ -89,6 +89,8 @@ namespace Grand.Services.Commands.Handlers.Messages
                 Vendor vendorItem = string.IsNullOrEmpty(item.VendorId) ? null : await _vendorService.GetVendorById(item.VendorId);
                 var liqitem = new LiquidOrderItem(item, product, request.Order, language, currency, request.Store, vendorItem);
 
+                liqitem.PaymentLink = request.Order.PaymentLink;
+                
                 #region Download
 
                 liqitem.IsDownloadAllowed = _downloadService.IsDownloadAllowed(request.Order, item, product);
