@@ -392,8 +392,12 @@ namespace Grand.Services.Messages
             //event notification
             await _mediator.MessageTokensAdded(messageTemplate, liquidObject);
 
-            var toEmail = emailAccount.Email;
-            var toName = emailAccount.DisplayName;
+            
+            //var toEmail = emailAccount.Email;
+            //var toName = emailAccount.DisplayName;
+
+            var toEmail = order.CustomerEmail;
+            var toName = order.FirstName + " " + order.LastName;
             return await SendNotification(messageTemplate, emailAccount,
                 languageId, liquidObject,
                 toEmail, toName);
