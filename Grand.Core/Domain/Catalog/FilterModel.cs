@@ -11,5 +11,11 @@
         public string InteriorFacade { get; set; } = "Все";
         public int PriceMore{ get; set; }
         public int PriceLess { get; set; } = 280000;
+        public decimal WeightMore { get; set; }
+        public decimal WeightLess { get; set; } = 10000;
+        public decimal WidthMore { get; set; }
+        public decimal WidthLess { get; set; } = 10000;
+        public decimal HeightMore { get; set; }
+        public decimal HeightLess { get; set; } = 10000;
     }
 }

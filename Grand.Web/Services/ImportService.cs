@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -84,8 +85,8 @@ namespace Grand.Web.Services
             var directory = Path.Combine(Directory.GetCurrentDirectory(), "App_Data", "Import");
             var productQty = 0;
             var updatedProduct = 0;
-            var csvStringCategory = "Название;Артикул" + Environment.NewLine;
-            var csvStringManufacturer = "Название;Артикул" + Environment.NewLine;
+            // var csvStringCategory = "Название;Артикул" + Environment.NewLine;
+            // var csvStringManufacturer = "Название;Артикул" + Environment.NewLine;
             
             foreach (var sourceProduct in importSourceProducts.ProductDto)
             {
@@ -100,6 +101,14 @@ namespace Grand.Web.Services
 
                 if (isExistedProduct)
                 {
+                    if (productResult.Weight == 0 || productResult.Height == 0 || productResult.Width == 0)
+                    {
+                        productResult.Weight = Convert.ToDecimal(sourceProduct.Weight);
+                        productResult.Height = Convert.ToDecimal(sourceProduct.Height);
+                        productResult.Width = sourceProduct.Width;
+                        productResult.LWHMeasure = sourceProduct.LWHMeasure;
+                        productResult.WeightMeasure = sourceProduct.WeightMeasure;
+                    }
                     // if (productResult.ProductCategories.FirstOrDefault(x =>
                     //     x.CategoryId == "5f8c2300d2ad97447818e69d") != null) 
                     // {
@@ -124,8 +133,8 @@ namespace Grand.Web.Services
                     //     productResult.SeName = translitedUrl;
                     //
                     //     await _urlRecordRepository.UpdateAsync(urlRecord);
-                    //     await _productRepository.UpdateAsync(productResult);
-                    //     updatedProduct++;
+                         await _productRepository.UpdateAsync(productResult);
+                         updatedProduct++;
                     // }
                     
                     
@@ -137,7 +146,12 @@ namespace Grand.Web.Services
                 
                 var product = new ProductDto 
                 {
+                    LWHMeasure = sourceProduct.LWHMeasure,
+                    WeightMeasure = sourceProduct.WeightMeasure,
                     Name = sourceProduct.Name,
+                    Width = sourceProduct.Width,
+                    Height = Convert.ToDecimal(sourceProduct.Height),
+                    Weight =  Convert.ToDecimal(sourceProduct.Weight),
                     SeName = sourceProduct.Name.Replace(' ', '-').ToLower().Unidecode(),
                     VendorCode = sourceProduct.Article,
                     FullDescription = sourceProduct.Description,
@@ -294,7 +308,7 @@ namespace Grand.Web.Services
             
             // await File.WriteAllTextAsync(@"C:\projects\Gaudi\ProductsWithoutCategories.csv", csvStringCategory);
             // await File.WriteAllTextAsync(@"C:\projects\Gaudi\ProductsWithoutManufacturers.csv", csvStringManufacturer);
-             return _productDtos;
+              return _productDtos;
         }
     }
 }

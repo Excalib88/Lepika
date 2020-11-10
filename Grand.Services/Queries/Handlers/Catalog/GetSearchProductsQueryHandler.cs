@@ -119,6 +119,10 @@ namespace Grand.Services.Queries.Handlers.Catalog
             if (filterModel != null)
             {
                 filter &= builder.Where(x => x.Price >= filterModel.PriceMore && x.Price <= filterModel.PriceLess);
+                filter &= builder.Where(x => x.Weight >= filterModel.WeightMore && x.Weight <= filterModel.WeightLess);
+                filter &= builder.Where(x => x.Width >= filterModel.WidthMore && x.Width <= filterModel.WidthLess);
+                filter &= builder.Where(x => x.Height >= filterModel.HeightMore && x.Height <= filterModel.HeightLess);
+                
                 if (!string.IsNullOrEmpty(filterModel.InteriorFacade) && filterModel.InteriorFacade != "Все")
                 {
                     filter = filter & builder.Where(x => x.Razdel == filterModel.InteriorFacade);

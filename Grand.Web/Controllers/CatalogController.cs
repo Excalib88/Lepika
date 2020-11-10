@@ -135,6 +135,12 @@ namespace Grand.Web.Controllers
             filterModel.InteriorFacade = "Все";
             filterModel.PriceMore = 0;
             filterModel.PriceLess = 280000;
+            filterModel.WeightMore = 0;
+            filterModel.WeightLess = 10000;
+            filterModel.HeightMore = 0;
+            filterModel.HeightLess = 10000;
+            filterModel.WidthMore = 0;
+            filterModel.WidthLess = 10000;
             
             return RedirectToAction("Filter", "Catalog", filterModel);
         }

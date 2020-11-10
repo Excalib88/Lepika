@@ -109,6 +109,30 @@
                         }
                     </div>
                     
+                    @if(Model.Weight != 0)
+                    {
+                        <div>
+                            <span class="label">Масса:</span>
+                            <span class="value">@Model.Weight @Model.WeightMeasure</span>
+                        </div>
+                    }  
+                    
+                    @if(Model.Height != 0)
+                    {
+                        <div>
+                            <span class="label">Высота:</span>
+                            <span class="value">@Model.Height @Model.LWHMeasure</span>
+                        </div>
+                    }
+                    
+                    @if(Model.Width != 0)
+                    {
+                        <div>
+                            <span class="label">Ширина:</span>
+                            <span class="value">@Model.Width @Model.LWHMeasure</span>
+                        </div>
+                    } 
+
                     @if(Model.Gibkiy)
                     {
                         <div>
