@@ -12,6 +12,8 @@
             <div class="container">
                 <div style="text-align: center;"><b>Фильтры</b></div>
                 <div>
+                    <div><b>Интерьер/Фасад</b></div>
+                    <hr/>
                     <div class="row">
                         <div class="col-9">
                             Все
@@ -32,21 +34,11 @@
                             @Html.RadioButtonFor(m => m.InteriorFacade, "Фасад")
                         </div>
                     </div>
+                    <hr/>
                 </div>
                 
-                <div class="row">
-                    <div class="col-12">
-                        Цена, р
-                    </div>
-                </div>
-                <div>
-                    <div style="padding-top:10px;">
-                        <admin-input asp-for="PriceMore"/>
-                    </div>
-                    <div style="padding-top:10px;">
-                        <admin-input  asp-for="PriceLess"/>
-                    </div> 
-                </div>
+                <div><b>Размер</b></div>
+                <hr/>
                 <div class="row">
                     <div class="col-12">
                         Ширина
@@ -60,6 +52,7 @@
                         <admin-input asp-for="WidthLess"/>
                     </div>
                 </div>
+                <br/>
                 <div class="row">
                     <div class="col-12">
                         Высота
@@ -73,9 +66,10 @@
                         <admin-input asp-for="HeightLess"/>
                     </div>
                 </div>
+                <br/>
                 <div class="row">
                     <div class="col-12">
-                        Ширина
+                        Масса
                     </div>
                 </div>
                 <div>
@@ -87,6 +81,24 @@
                     </div>
                 </div>
                 
+                <hr/>
+                
+                <div class="row">
+                    <div class="col-12">
+                        Цена, р
+                    </div>
+                </div>
+                <div>
+                    <div style="padding-top:10px;">
+                        <admin-input asp-for="PriceMore"/>
+                    </div>
+                    <div style="padding-top:10px;">
+                        <admin-input asp-for="PriceLess"/>
+                    </div>
+                </div>
+                <hr/>
+                <div><b>Характеристики</b></div>
+                <hr/>
                 <div class="row" style="padding-top:10px;">
                     <div class="col-9">
                         Гибкость:
@@ -127,6 +139,7 @@
                         <admin-input asp-for="IsNew"/>
                     </div>
                 </div>
+                <hr/>
             </div>
             <div style="text-align: center;">
                 <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> Применить </button>
