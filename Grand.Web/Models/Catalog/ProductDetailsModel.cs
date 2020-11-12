@@ -87,6 +87,7 @@ namespace Grand.Web.Models.Catalog
         public decimal Weight { get; set; }
         public decimal Height { get; set; }
         public decimal Width { get; set; }
+        public decimal Length { get; set; }
         public string LWHMeasure { get; set; }
         public string WeightMeasure { get; set; }
         public string StockAvailability { get; set; }

@@ -373,6 +373,7 @@ namespace Grand.Web.Features.Handlers.Products
                 Weight = product.Weight,
                 Height = product.Height,
                 Width = product.Width,
+                Length = product.Length,
                 LWHMeasure = product.LWHMeasure,
                 WeightMeasure = product.WeightMeasure,
                 Mark = product.Mark,

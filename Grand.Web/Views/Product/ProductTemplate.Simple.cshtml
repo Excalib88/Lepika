@@ -120,11 +120,17 @@
                     @if(Model.Height != 0)
                     {
                         <div>
-                            <span class="label">Высота:</span>
+                            <span class="label">Глубина:</span>
                             <span class="value">@Model.Height @Model.LWHMeasure</span>
                         </div>
                     }
-                    
+                    @if(Model.Length != 0)
+                    {
+                        <div>
+                            <span class="label">Длина:</span>
+                            <span class="value">@Model.Length @Model.LWHMeasure</span>
+                        </div>
+                    } 
                     @if(Model.Width != 0)
                     {
                         <div>

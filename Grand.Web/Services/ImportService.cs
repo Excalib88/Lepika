@@ -101,14 +101,16 @@ namespace Grand.Web.Services
 
                 if (isExistedProduct)
                 {
-                    if (productResult.Weight == 0 || productResult.Height == 0 || productResult.Width == 0)
-                    {
-                        productResult.Weight = Convert.ToDecimal(sourceProduct.Weight);
-                        productResult.Height = Convert.ToDecimal(sourceProduct.Height);
-                        productResult.Width = sourceProduct.Width;
-                        productResult.LWHMeasure = sourceProduct.LWHMeasure;
-                        productResult.WeightMeasure = sourceProduct.WeightMeasure;
-                    }
+                    if (productResult.Length == 0 && sourceProduct.Length != 0)
+                        productResult.Length = sourceProduct.Length;
+                    // if (productResult.Weight == 0 || productResult.Height == 0 || productResult.Width == 0)
+                    // {
+                    //     productResult.Weight = Convert.ToDecimal(sourceProduct.Weight);
+                    //     productResult.Height = Convert.ToDecimal(sourceProduct.Height);
+                    //     productResult.Width = sourceProduct.Width;
+                    //     productResult.LWHMeasure = sourceProduct.LWHMeasure;
+                    //     productResult.WeightMeasure = sourceProduct.WeightMeasure;
+                    // }
                     // if (productResult.ProductCategories.FirstOrDefault(x =>
                     //     x.CategoryId == "5f8c2300d2ad97447818e69d") != null) 
                     // {

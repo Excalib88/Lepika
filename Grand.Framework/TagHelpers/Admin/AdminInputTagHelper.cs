@@ -25,7 +25,7 @@ namespace Grand.Framework.TagHelpers.Admin
         private const string TemplateAttributeName = "asp-template";
         private const string PostfixAttributeName = "asp-postfix";
         private const string PostSelectItem = "asp-selectitem";
-
+        private const string Placeholder = "asp-placeholder";
         private readonly IHtmlHelper _htmlHelper;
 
         /// <summary>

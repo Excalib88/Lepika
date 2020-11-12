@@ -30,7 +30,7 @@ namespace Grand.Web.Commands.Models.Import
         public bool IsDelete { get; set; }
         public bool IsNew { get; set; }
         public string LWHMeasure { get; set; }
-        public double Length { get; set; }
+        public decimal Length { get; set; }
         public int Mark { get; set; }
         public string Material { get; set; }
         public string Measure { get; set; }

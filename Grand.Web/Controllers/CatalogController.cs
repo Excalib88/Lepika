@@ -141,7 +141,8 @@ namespace Grand.Web.Controllers
             filterModel.HeightLess = 10000;
             filterModel.WidthMore = 0;
             filterModel.WidthLess = 10000;
-            
+            filterModel.LengthMore = 0;
+            filterModel.LengthLess = 10000;
             return RedirectToAction("Filter", "Catalog", filterModel);
         }
         
