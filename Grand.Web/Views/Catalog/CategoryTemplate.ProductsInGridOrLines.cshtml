@@ -60,7 +60,7 @@
 }
 <div class="page category-page">
     <h2 class="generalTitle">@Model.Name</h2>
-    @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_top", additionalData = Model.Id })
+    @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_top", additionalData = Model.Id})
     @*description*@
     @if (!String.IsNullOrWhiteSpace(Model.Description))
     {
@@ -72,7 +72,7 @@
             </div>
         </div>
     }
-    @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_before_subcategories", additionalData = Model.Id })
+    @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_before_subcategories", additionalData = Model.Id})
     @*subcategories*@
     @if (Model.SubCategories.Any())
     {
@@ -83,13 +83,13 @@
                     <div class="col-md-4 col-6 mb-2">
                         <div class="card p-0">
                             <div class="list-picture">
-                                <a href="@Url.RouteUrl("Category", new {item.SeName })" title="@item.PictureModel.Title">
-                                    <img class="img-fluid" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
+                                <a href="@Url.RouteUrl("Category", new {item.SeName})" title="@item.PictureModel.Title">
+                                    <img class="img-fluid" alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title"/>
                                 </a>
                             </div>
                             <div class="list-title mt-3">
                                 <h3 class="h6 card-title m-0 p-0">
-                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })">
+                                    <a href="@Url.RouteUrl("Category", new {SeName = item.SeName})">
                                         @item.Name
                                     </a>
                                 </h3>
@@ -100,7 +100,7 @@
             </div>
         </div>
     }
-    @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_before_featured_products", additionalData = Model.Id })
+    @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_before_featured_products", additionalData = Model.Id})
     @*featured products*@
     @if (Model.FeaturedProducts.Any() && !Model.Products.Any())
     {
@@ -113,24 +113,24 @@
                 @foreach (var item in Model.FeaturedProducts)
                 {
                     <div class="col-lg-4 col-sm-6 col-6 product-container mb-2">
-                        <partial name="_ProductBox" model="item" />
+                        <partial name="_ProductBox" model="item"/>
                     </div>
                 }
             </div>
         </div>
     }
-    @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_after_featured_products", additionalData = Model.Id })
+    @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_after_featured_products", additionalData = Model.Id})
 
     @if (Model.Products.Any())
     {
-        @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_before_filters", additionalData = Model.Id })
+        @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_before_filters", additionalData = Model.Id})
 
-        @if(Model.Name != "Каталог")
+        @if (Model.Name != "Каталог")
         {
-            <partial name="_CatalogSelectors" model="Model.PagingFilteringContext" />
+            <partial name="_CatalogSelectors" model="Model.PagingFilteringContext"/>
         }
 
-        @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_before_product_list", additionalData = Model.Id })
+        @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_before_product_list", additionalData = Model.Id})
 
         if (Model.Name != "Каталог")
         {
@@ -141,7 +141,7 @@
                         @foreach (var product in Model.Products)
                         {
                             <div class="col-lg-4 col-sm-6 col-6 product-container mb-2">
-                                <partial name="_ProductBox" model="product" />
+                                <partial name="_ProductBox" model="product"/>
                             </div>
                         }
                     </div>
@@ -155,7 +155,7 @@
                             @pager
                         </nav>
                     }
-                    @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_bottom", additionalData = Model.Id })
+                    @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_bottom", additionalData = Model.Id})
                 </div>
             }
             else
@@ -165,7 +165,7 @@
                         <div class="row">
                             @foreach (var product in Model.Products)
                             {
-                                <partial name="_ProductBoxList" model="product" />
+                                <partial name="_ProductBoxList" model="product"/>
                             }
                             @{
                                 var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
@@ -176,14 +176,14 @@
                                     @pager
                                 </nav>
                             }
-                            @await Component.InvokeAsync("Widget", new { widgetZone = "categorydetails_bottom", additionalData = Model.Id })
+                            @await Component.InvokeAsync("Widget", new {widgetZone = "categorydetails_bottom", additionalData = Model.Id})
                         </div>
                     </div>
                 </div>
 
             }
         }
-        
+
     }
 </div>
 @section filters

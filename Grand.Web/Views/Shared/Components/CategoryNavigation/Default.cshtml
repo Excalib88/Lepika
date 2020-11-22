@@ -2,7 +2,11 @@
 @if (Model.Categories.Any())
 {
     <div id="block-category-navigation" class="col-sm--12 block block-category-navigation d-lg-block d-none">
+        @if(T("Categories").ToString().ToLower() != "категории")
+        {
             <h2 class="h5"><strong>@T("Categories")</strong></h2>
+        }
+            
             <div class="viewBox listbox">
                 <ul class="list">
                     @foreach (var category in Model.Categories)
