@@ -701,6 +701,7 @@ namespace Grand.Web.Features.Handlers.Products
         {
             var model = new ProductDetailsModel.AddToCartModel();
             model.ProductId = product.Id;
+            model.HasExample = product.Obrazci > 0;
             if (updatecartitem != null)
             {
                 model.UpdatedShoppingCartItemId = updatecartitem.Id;

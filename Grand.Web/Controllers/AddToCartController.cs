@@ -365,13 +365,23 @@ namespace Grand.Web.Controllers
             #region Quantity
 
             int quantity = 1;
+            bool isExample = false;
             foreach (string formKey in form.Keys)
+            {
                 if (formKey.Equals(string.Format("addtocart_{0}.EnteredQuantity", productId), StringComparison.OrdinalIgnoreCase))
                 {
                     int.TryParse(form[formKey], out quantity);
                     break;
                 }
-
+                if (formKey.Equals(string.Format("addtocart_{0}.IsExample", productId), StringComparison.OrdinalIgnoreCase))
+                {
+                    isExample = form[formKey].Contains("true");
+                    break;
+                }
+            }
+                
+            
+                
             #endregion
 
             //product and gift card attributes
@@ -510,9 +520,12 @@ namespace Grand.Web.Controllers
                     message = addToCartWarnings.ToArray()
                 });
             }
-
+            if(isExample) quantity = 1;
+            product.Price = 3385;
             var addtoCartModel = await _mediator.Send(new GetAddToCart() {
+                    
                 Product = product,
+                IsExample = isExample,
                 Customer = _workContext.CurrentCustomer,
                 Quantity = quantity,
                 CartType = cartType,

@@ -120,21 +120,21 @@
                     @if(Model.Height != 0)
                     {
                         <div>
-                            <span class="label">Глубина:</span>
+                            <span class="label">Ширина:</span>
                             <span class="value">@Model.Height @Model.LWHMeasure</span>
                         </div>
                     }
                     @if(Model.Length != 0)
                     {
                         <div>
-                            <span class="label">Длина:</span>
+                            <span class="label">Глубина:</span>
                             <span class="value">@Model.Length @Model.LWHMeasure</span>
                         </div>
                     } 
                     @if(Model.Width != 0)
                     {
                         <div>
-                            <span class="label">Ширина:</span>
+                            <span class="label">Длина:</span>
                             <span class="value">@Model.Width @Model.LWHMeasure</span>
                         </div>
                     } 
@@ -162,7 +162,13 @@
                             <span class="value">Да</span>
                         </div>
                     }
-                    
+                    @if(Model.Obrazci > 0)
+                    {
+                        <div>
+                            <span class="label">Наличие образцов:</span>
+                            <span class="value">Да</span>
+                        </div>
+                    }
                     @if (!String.IsNullOrWhiteSpace(Model.StockAvailability) || Model.DisplayBackInStockSubscription)
                     {
                         <partial name="_Availability" model="Model" />

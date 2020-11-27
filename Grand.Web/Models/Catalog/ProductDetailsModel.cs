@@ -144,6 +144,8 @@ namespace Grand.Web.Models.Catalog
             //qty
             [GrandResourceDisplayName("Products.Qty")]
             public int EnteredQuantity { get; set; }
+            public bool IsExample{get; set; }
+            public bool HasExample{get;set;}
             public string MinimumQuantityNotification { get; set; }
             public List<SelectListItem> AllowedQuantities { get; set; }
             //price entered by customers
@@ -187,6 +189,22 @@ namespace Grand.Web.Models.Catalog
             public bool CallForPrice { get; set; }
             public string ProductId { get; set; }
             public bool HidePrices { get; set; }
+
+            private bool isExample; 
+            public bool IsExample {
+                get {
+                    return isExample;
+                }
+                set {
+                    if (value)
+                    {
+                        Price = "0";
+                    }
+
+                    isExample = value;
+                }
+            }
+
             //Reservation
             public bool IsReservation { get; set; }
             public string ReservationPrice { get; set; }

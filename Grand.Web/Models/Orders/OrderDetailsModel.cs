@@ -92,6 +92,7 @@ namespace Grand.Web.Models.Orders
             }
             public Guid OrderItemGuid { get; set; }
             public string Sku { get; set; }
+            public bool IsExample { get; set; }
             public string ProductId { get; set; }
             public string ProductName { get; set; }
             public string ProductSeName { get; set; }

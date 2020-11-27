@@ -46,10 +46,7 @@
         }
         if (!(Model.IsAuction && Model.DisableBuyButton))
         {
-            <div class="@if (String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
-        {<text>product-price col-12 d-inline-flex align-items-center</text>}
-        else
-        {<text>non-discounted-price col-12 d-flex align-items-center</text>}">
+            <div class="@if (String.IsNullOrWhiteSpace(Model.PriceWithDiscount)) {<text>product-price col-12 d-inline-flex align-items-center</text>} else {<text>non-discounted-price col-12 d-flex align-items-center</text>}">
                 @*render price*@
                 <span class="price-value-@(Model.ProductId)">
                     @if (Model.IsAuction)
@@ -94,7 +91,7 @@
                 <span class="your-price price-value-@(Model.ProductId)">
                     <strong>@Html.Raw(Model.PriceWithDiscount)</strong>
                 </span>
-                 <meta itemprop="price" content="@Model.PriceValue.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" class="your-price price-value-@(Model.ProductId)" />
+                <meta itemprop="price" content="@Model.PriceValue.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" class="your-price price-value-@(Model.ProductId)"/>
             </div>
         }
         if (!String.IsNullOrEmpty(Model.BasePricePAngV))
@@ -109,15 +106,16 @@
             //tax info is already included in the price (incl/excl tax). that's why we display only shipping info here
             //of course, you can modify appropriate locales to include VAT info there
             <div class="tax-shipping-info generalMarginSupporter">
-                @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeName("shippinginfo", Context) }))
+                @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new {SeName = await Html.GetTopicSeName("shippinginfo", Context)}))
             </div>
         }
         if (!String.IsNullOrEmpty(Model.CurrencyCode))
         {
-            <meta itemprop="priceCurrency" content="@Model.CurrencyCode" />
+            <meta itemprop="priceCurrency" content="@Model.CurrencyCode"/>
         }
-        @if (String.IsNullOrWhiteSpace(Model.PriceWithDiscount)) {
-            <meta itemprop="price" content="@Model.PriceValue.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"/> 
+        @if (String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
+        {
+            <meta itemprop="price" content="@Model.PriceValue.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)"/>
         }
     }
 </div>
