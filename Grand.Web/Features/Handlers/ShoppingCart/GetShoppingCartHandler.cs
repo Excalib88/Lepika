@@ -355,6 +355,7 @@ namespace Grand.Web.Features.Handlers.ShoppingCart
                 var product = await _productService.GetProductById(sci.ProductId);
                 var cartItemModel = new ShoppingCartModel.ShoppingCartItemModel {
                     Id = sci.Id,
+                    IsExample = product.Obrazci > 0,
                     Sku = product.FormatSku(sci.AttributesXml, _productAttributeParser),
                     IsCart = sci.ShoppingCartType == ShoppingCartType.ShoppingCart,
                     ProductId = product.Id,

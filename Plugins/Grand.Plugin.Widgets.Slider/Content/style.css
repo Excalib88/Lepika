@@ -11,7 +11,12 @@
     #GrandCarousel .carousel-item[onclick] {
         cursor: pointer;
     }
-
+    .filter-input {
+        max-width: 40%;
+    }
+    .filter-input > input{
+        width: 100%;
+    }
     #GrandCarousel .carousel-item .carousel-caption {
         position: relative;
         top: 0;

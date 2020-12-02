@@ -126,6 +126,7 @@ namespace Grand.Core.Domain.Orders
         /// Gets or sets Duration of reservation
         /// </summary>
         public string Duration { get; set; }
-
+        
+        public bool IsExample { get; set; }
     }
 }

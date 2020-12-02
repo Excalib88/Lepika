@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Grand.Api.DTOs.Catalog
 {
     [Validator(typeof(ProductValidator))]
-    public partial class ProductDto : BaseApiEntityModel
+    public partial class ProductDto : BaseApiEntityModel, ICloneable
     {
         public ProductDto()
         {
@@ -177,5 +177,10 @@ namespace Grand.Api.DTOs.Catalog
         public string Material { get; set; }
         public int Mark { get; set; }
         public string UseWith { get; set; }
+        
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Grand.Web.Areas.Admin.Models.ShoppingCart
         [GrandResourceDisplayName("Admin.CurrentCarts.Product")]
         public string ProductName { get; set; }
         public string AttributeInfo { get; set; }
-
+        public bool IsExample{get;set;}
         [GrandResourceDisplayName("Admin.CurrentCarts.UnitPrice")]
         public string UnitPrice { get; set; }
         [GrandResourceDisplayName("Admin.CurrentCarts.Quantity")]

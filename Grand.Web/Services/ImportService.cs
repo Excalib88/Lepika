@@ -185,7 +185,6 @@ namespace Grand.Web.Services
                     select c;
                 
                 var isExistedCategory = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategory) != null;
-
                 var categoryDto = new CategoryDto();
                 
                 if (!isExistedCategory)
@@ -281,6 +280,63 @@ namespace Grand.Web.Services
                     ProductId = productDto.Id,
                     IsFeaturedProduct = true
                 });
+
+                var productDtoExample = new ProductDto();
+                var productExample = new ProductDto();
+                if (product.Obrazci > 0)
+                {
+                    productExample = (ProductDto)product.Clone();
+                    var exampleCategoryName = "Образцы";
+                    var queryCategoryExample = from c in _categoryRepository.Table 
+                        where c.Name == exampleCategoryName
+                        select c;
+                
+                    var isExistedCategoryExample = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategoryExample) != null;
+                    var categoryDtoExample = new CategoryDto();
+                
+                    if (!isExistedCategoryExample)
+                    {
+                        categoryDtoExample = await _mediator.Send(new AddCategoryCommand {
+                            Model = new CategoryDto {
+                                Name = exampleCategoryName,
+                                Published = true,
+                                HideOnCatalog = true,
+                                ShowOnSearchBox = false,
+                                ShowOnHomePage = false,
+                                CategoryTemplateId = "5f66096097db2b2da47b957d",
+                                ParentCategoryId = "5f8c210ea1bd7e55c439472b"
+                            }
+                        });
+
+                        var categoryForDelete = productExample.Categories.FirstOrDefault(
+                            x => x.CategoryId == categoryDto.Id);
+                        productExample.Categories.Remove(categoryForDelete);
+                        productExample.Categories.Add(new ProductCategoryDto {
+                            CategoryId = categoryDtoExample.Id
+                        });
+                    }
+                    else
+                    {
+                        var categoryId = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategoryExample).Id;
+                        categoryDtoExample.Id = categoryId;
+                        productExample.Categories.Add(new ProductCategoryDto
+                        {
+                            CategoryId = categoryId
+                        });
+                    }
+                    
+                    productDtoExample = await _mediator.Send(
+                        new AddProductCommand 
+                        {
+                            Model = productExample
+                        });
+                    
+                    await _categoryService.InsertProductCategory(new ProductCategory {
+                        CategoryId = categoryDtoExample.Id,
+                        ProductId = productDtoExample.Id,
+                        IsFeaturedProduct = true
+                    });
+                }
                 await _manufacturerService.InsertProductManufacturer(new ProductManufacturer {
                     ManufacturerId = manufacturerDto.Id,
                     ProductId = productDto.Id,
@@ -298,6 +354,21 @@ namespace Grand.Web.Services
                         PictureId = item.Id,
                         ProductId = productDto.Id
                     });
+
+                    if (product.Obrazci > 0)
+                    {
+                        productExample.Pictures.Add(new ProductPictureDto {
+                            MimeType = item.MimeType,
+                            PictureId = item.Id
+                        });
+                    
+                        await _productService.InsertProductPicture(new ProductPicture {
+                            PictureId = item.Id,
+                            ProductId = productDtoExample.Id
+                        });
+
+                        _productDtos.Add(productDtoExample);
+                    }
                 }
                 
                 _productDtos.Add(productDto);

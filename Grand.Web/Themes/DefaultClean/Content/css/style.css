@@ -4,7 +4,19 @@
     font-size: 24px;
     line-height: 1;
 }
+.filter-input {
+    max-width:45%;
+}
 
+.filter-input > input {
+    width:100%;
+}
+
+.parent-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 /* general settings */
 
 #custom-search-input button:focus,

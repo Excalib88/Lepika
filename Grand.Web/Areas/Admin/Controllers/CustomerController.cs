@@ -812,6 +812,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         public async Task<IActionResult> GetCartList(string customerId, int cartTypeId)
         {
             var cart = await _customerViewModelService.PrepareShoppingCartItemModel(customerId, cartTypeId);
+            
             var gridModel = new DataSourceResult
             {
                 Data = cart,

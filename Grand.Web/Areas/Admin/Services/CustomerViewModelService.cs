@@ -1406,6 +1406,7 @@ namespace Grand.Web.Areas.Admin.Services
                     Store = store != null ? store.Shortcut : "Unknown",
                     ProductId = sci.ProductId,
                     Quantity = sci.Quantity,
+                    IsExample = product.Obrazci > 0, 
                     ProductName = product.Name,
                     AttributeInfo = await _productAttributeFormatter.FormatAttributes(product, sci.AttributesXml),
                     UnitPrice = _priceFormatter.FormatPrice((await _taxService.GetProductPrice(product, (await _priceCalculationService.GetUnitPrice(sci)).unitprice)).productprice),

@@ -10,10 +10,14 @@
     <div>
         <form method="post" asp-controller="Catalog" asp-action="Filter">
             <div class="container">
-                <div style="text-align: center;"><b>Фильтры</b></div>
+                <div style="text-align: center;">
+                    <b>Фильтры</b>
+                </div>
                 <div>
                     <br/>
-                    <div><b>Интерьер/Фасад</b></div>
+                    <div>
+                        <b>Интерьер/Фасад</b>
+                    </div>
                     <hr/>
                     <div class="row">
                         <div class="col-9">
@@ -37,33 +41,38 @@
                     </div>
                     <hr/>
                 </div>
-                
-                <div><b>Размер</b></div>
+
+                <div>
+                    <b>Размер</b>
+                </div>
                 <hr/>
                 <div class="row">
                     <div class="col-12">
                         Глубина
                     </div>
                 </div>
-                <div>
-                    <div style="padding-top:10px;">
+                <div class="parent-filter">
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="LengthMore"/>
                     </div>
-                    <div style="padding-top:10px;">
+                    <span style="align-items:center;">-</span>
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="LengthLess"/>
                     </div>
                 </div>
                 <br/>
-                <div class="row">
+                <div class="row ">
                     <div class="col-12">
                         Длина
                     </div>
                 </div>
-                <div>
-                    <div style="padding-top:10px;">
+                <div class="parent-filter">
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="WidthMore"/>
                     </div>
-                    <div style="padding-top:10px;">
+                    <span style="align-items:center;">-</span>
+
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="WidthLess"/>
                     </div>
                 </div>
@@ -73,11 +82,13 @@
                         Ширина
                     </div>
                 </div>
-                <div>
-                    <div style="padding-top:10px;">
+                <div class="parent-filter">
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="HeightMore"/>
                     </div>
-                    <div style="padding-top:10px;">
+                    <span style="align-items:center;">-</span>
+
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="HeightLess"/>
                     </div>
                 </div>
@@ -87,32 +98,38 @@
                         Масса
                     </div>
                 </div>
-                <div>
-                    <div style="padding-top:10px;">
+                <div class="parent-filter">
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="WeightMore"/>
                     </div>
-                    <div style="padding-top:10px;">
+                    <span style="align-items:center;">-</span>
+
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="WeightLess"/>
                     </div>
                 </div>
-                
+
                 <hr/>
-                
+
                 <div class="row">
                     <div class="col-12">
                         Цена, р
                     </div>
                 </div>
-                <div>
-                    <div style="padding-top:10px;">
+                <div class="parent-filter">
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="PriceMore"/>
                     </div>
-                    <div style="padding-top:10px;">
+                    <span style="align-items:center;">-</span>
+
+                    <div class="filter-input" style="padding-top:10px;">
                         <admin-input asp-for="PriceLess"/>
                     </div>
                 </div>
                 <hr/>
-                <div><b>Характеристики</b></div>
+                <div>
+                    <b>Характеристики</b>
+                </div>
                 <hr/>
                 <div class="row" style="padding-top:10px;">
                     <div class="col-9">

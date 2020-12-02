@@ -28,7 +28,7 @@ namespace Grand.Web.Models.ShoppingCart
         public bool IsAllowOnHold { get; set; }
         public bool TermsOfServicePopup { get; set; }
         public IList<ShoppingCartItemModel> Items { get; set; }
-
+        
         public string CheckoutAttributeInfo { get; set; }
         public IList<CheckoutAttributeModel> CheckoutAttributes { get; set; }
 
@@ -61,6 +61,7 @@ namespace Grand.Web.Models.ShoppingCart
             public PictureModel Picture {get;set;}
             public string ProductId { get; set; }
             public string ProductName { get; set; }
+            public bool IsExample { get; set; }
             public string ProductSeName { get; set; }
             public string WarehouseId { get; set; }
             public string WarehouseName { get; set; }

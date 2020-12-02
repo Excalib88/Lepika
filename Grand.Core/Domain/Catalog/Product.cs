@@ -39,6 +39,7 @@ namespace Grand.Core.Domain.Catalog
         public string[] Model { get; set; }
         public string Measure { get; set; }
         public string LWHMeasure { get; set; }
+        
         public bool IsDelete { get; set; }
         /// <summary>
         /// Gets or sets the product type identifier
