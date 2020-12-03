@@ -83,7 +83,7 @@ namespace Grand.Web.Controllers
                     success = false,
                     message = "No product found with the specified ID"
                 });
-
+            product.ProductType = ProductType.SimpleProduct;
             //we can add only simple products and 
             if (product.ProductType != ProductType.SimpleProduct || _shoppingCartSettings.AllowToSelectWarehouse)
             {

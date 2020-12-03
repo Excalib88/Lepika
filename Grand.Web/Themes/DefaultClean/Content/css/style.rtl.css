@@ -251,11 +251,11 @@ input {
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::before,
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: #0091b5;
+    background-color: #bd2626;
 }
 .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;
-    background-color: #0091b5;
+    background-color: #bd2626;
 }
  
 /* Default Buttons */
@@ -285,12 +285,12 @@ input {
 }
 .btn-info,
 .btn-outline-info:hover {
-    background-color: #0091b5;
-    border-color: #0091b5;
+    background-color: #bd2626;
+    border-color: #bd2626;
 }
 .btn-outline-info {
-    color: #0091b5;
-    border-color: #0091b5;
+    color: #bd2626;
+    border-color: #bd2626;
 }
 .btn,
 .custom-checkbox {
@@ -376,7 +376,7 @@ input {
 
 .bg-info,
 .badge-info {
-    background-color: #0091b5 !important;
+    background-color: #bd2626 !important;
 }
 .bg-primary,
 .badge-primary {
@@ -541,7 +541,7 @@ span.rotate {
 	transition: opacity 0.3s ease-out;
 	opacity: 0;
 	z-index: 997;
-	background: #0091b5;
+	background: #bd2626;
 	color: #fff;
 }
 #back-to-top .mdi {
@@ -833,7 +833,7 @@ ul.ui-autocomplete li img {
 	font-size: 16px;
 	font-weight: 500;
 	padding: 5px;
-	background: #0091b5;
+	background: #bd2626;
 	color: #fff;
 	height: 43px;
 	text-transform: uppercase;
@@ -1264,7 +1264,7 @@ nav .nav-item.list-inline {
 }
 .mainNav .badge-info::before,
 .mainNav .badge.bg-info::before {
-	border-top: 5px solid #0091b5;
+	border-top: 5px solid #bd2626;
 }
 .mainNav .badge-warning::before,
 .mainNav .badge.bg-warning::before {
@@ -1445,7 +1445,7 @@ pagination .pagination a:not([href]) {
 	border-bottom-left-radius: .25rem;
 }
 .pagination .page-item.current-page .page-link {
-	background: #0091b5;
+	background: #bd2626;
 	border-color: transparent;
 	color: #fff !important;
 }
@@ -1960,7 +1960,7 @@ footer .viewBox ul {
 	padding: 0;
 }
 .block-account-navigation .list li a:hover,
-.block-account-navigation .list li a.active {border: 2px solid #0091b5;color: #0091b5;}
+.block-account-navigation .list li a.active {border: 2px solid #bd2626;color: #bd2626;}
 .block-popular-tags .btn {
 	margin: 4px;
 }
@@ -2617,10 +2617,10 @@ list settings .list__item,
 	-webkit-transition-timing-function: linear;
 	transition: all 0.3s;
 	transition-timing-function: linear;
-	color: #0091b5;
+	color: #bd2626;
 }
 .generalLeftSide li.active.last::before {
-	color: #0091b5;
+	color: #bd2626;
 }
 .generalLeftSide li:before {
 	color: #ddd;
@@ -2659,7 +2659,7 @@ list settings .list__item,
 	left: 0;
 	width: 100%;
 	height: 2px;
-	background: #0091b5;
+	background: #bd2626;
 }
 .product-details-page #product_tab_content {
 	margin-top: 15px;
@@ -2810,7 +2810,7 @@ list settings .list__item,
 .overview-buttons .prices .actual-price,
 .associatedItem .actual-price,
 .catalog-product-price {
-	color: #0091b5;
+	color: #bd2626;
 	font-size: 1.25rem;
     font-weight: 500;
 }
@@ -2940,7 +2940,7 @@ ul.opc .order-summary-content h5 {
     transition: all .3s ease;
 }
 .prod-list:hover {
-    border: 1px solid #0091b5;
+    border: 1px solid #bd2626;
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.12)
 }
 .prod-list a {
@@ -3308,13 +3308,13 @@ table {
 	margin-left: 1rem !important;
 }
 .categoryGrid a.viewmode-icon:hover {
-	color: #0091b5;
+	color: #bd2626;
 }
 .categoryGrid a.viewmode-icon.selected:hover {
-	color: #0091b5;
+	color: #bd2626;
 }
 .categoryGrid a.viewmode-icon.selected {
-	color: #0091b5;
+	color: #bd2626;
 }
 .categoryItems .card a,
 .categoryGrid .card a {
@@ -3460,7 +3460,7 @@ table th.latest-post {
 	cursor: pointer;
 }
 .opc .active .card-grey {
-	background-color: #0091b5;
+	background-color: #bd2626;
 	color: #fff;
 	cursor: pointer;
 }
@@ -3862,7 +3862,7 @@ input[type='checkbox'].checkbox-u:checked + label:after {
     font-size: 16px;
     font-weight: 400;
     padding: 5px;
-    background: #0091b5;
+    background: #bd2626;
     color: #fff;
     height: 43px;
 }
@@ -3935,7 +3935,7 @@ input[type='checkbox'].checkbox-u:checked + label:after {
 	z-index: 99999;
 	position: absolute;
 	right: 0;
-	background: #0091b5;
+	background: #bd2626;
 	color: #fff;
 	height: 43px;
 	padding-left: 0;
@@ -4081,7 +4081,7 @@ input[type='checkbox'].checkbox-u:checked + label:after {
 #topcartlink .cart-qty,
 .wishlist-qty {
     border-radius: 100%;
-    background: #0091b5;
+    background: #bd2626;
     color: #fff;
     font-size: 9px;
     font-weight: 300;
@@ -4832,7 +4832,7 @@ footer .socicon-pinterest:hover {
     }
 	.navUp.navbar-light .navbar-nav .nav-link:focus,
 	.navUp.navbar-light .navbar-nav .nav-link:hover {
-		color: #0091b5;
+		color: #bd2626;
 	}
 	.mainNav .nav-item {
 		position: relative;
@@ -5121,7 +5121,7 @@ footer .socicon-pinterest:hover {
 	}
 	#mobile_menu .nav-link.sub-cat-name {
 		color: #fff;
-		background-color: #0091b5;
+		background-color: #bd2626;
 	}
 	#mobile_menu .badge {
 		position: absolute;
@@ -6313,14 +6313,14 @@ blockquote.administration-response {
 	color: #6c757d;
 	margin-top: 10px;
 	padding: 15px;
-	border: 1px solid #0091b5;
-	border-left: 20px solid #0091b5;
+	border: 1px solid #bd2626;
+	border-left: 20px solid #bd2626;
 }
 blockquote.administration-response p {
 	font-style: italic;
 }
 h5.administration-response-header {
-	color: #0091b5
+	color: #bd2626
 }
 @supports (-ms-ime-align:auto) {
 	header .dropdown-menu, #small-search-box-form {

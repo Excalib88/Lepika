@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -12,8 +11,6 @@ using Grand.Api.DTOs.Common;
 using Grand.Core.Data;
 using Grand.Core.Domain.Catalog;
 using Grand.Core.Domain.Logging;
-using Grand.Core.Domain.Media;
-using Grand.Core.Domain.Seo;
 using Grand.Services.Catalog;
 using Grand.Services.Logging;
 using Grand.Web.Commands.Models.Import;
@@ -30,25 +27,22 @@ namespace Grand.Web.Services
         private readonly List<ProductDto> _productDtos;
         private readonly IMediator _mediator;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<UrlRecord> _urlRecordRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Manufacturer> _manufacturerRepository;
         private readonly IProductService _productService;
-        private readonly IRepository<Picture> _pictureRepository;
         private readonly IManufacturerService _manufacturerService;
         private readonly ICategoryService _categoryService;
         private readonly ILogger _logger;
-        
+
         public ImportService(
-            IMediator mediator, 
-            IRepository<Category> categoryRepository, 
-            IRepository<Product> productRepository, 
-            IRepository<Manufacturer> manufacturerRepository, 
-            IProductService productService, 
-            IManufacturerService manufacturerService, 
-            ICategoryService categoryService, 
-            IRepository<Picture> pictureRepository,
-            ILogger logger, IRepository<UrlRecord> urlRecordRepository)
+            IMediator mediator,
+            IRepository<Category> categoryRepository,
+            IRepository<Product> productRepository,
+            IRepository<Manufacturer> manufacturerRepository,
+            IProductService productService,
+            IManufacturerService manufacturerService,
+            ICategoryService categoryService,
+            ILogger logger)
         {
             _mediator = mediator;
             _categoryRepository = categoryRepository;
@@ -57,9 +51,7 @@ namespace Grand.Web.Services
             _productService = productService;
             _manufacturerService = manufacturerService;
             _categoryService = categoryService;
-            _pictureRepository = pictureRepository;
             _logger = logger;
-            _urlRecordRepository = urlRecordRepository;
             _productDtos = new List<ProductDto>();
         }
 
@@ -67,13 +59,13 @@ namespace Grand.Web.Services
         {
             var currentPath = Directory.GetCurrentDirectory();
             var directory = Path.Combine(currentPath, "App_Data", "Import");
-            
+
             await using var reader = File.OpenRead(Path.Combine(directory, "output.json"));
             var products = await JsonSerializer.DeserializeAsync<List<ImportSourceProductDto>>(reader);
 
             await using var stockReader = File.OpenRead(Path.Combine(directory, "stocks.json"));
             var stocks = await JsonSerializer.DeserializeAsync<List<ImportStock>>(stockReader);
-            
+
             return new ImportSource {
                 Stock = stocks,
                 ProductDto = products
@@ -85,14 +77,12 @@ namespace Grand.Web.Services
             var directory = Path.Combine(Directory.GetCurrentDirectory(), "App_Data", "Import");
             var productQty = 0;
             var updatedProduct = 0;
-            // var csvStringCategory = "Название;Артикул" + Environment.NewLine;
-            // var csvStringManufacturer = "Название;Артикул" + Environment.NewLine;
-            
+
             foreach (var sourceProduct in importSourceProducts.ProductDto)
             {
-                var queryProduct = from c in _productRepository.Table 
-                    where c.VendorCode == sourceProduct.Article || 
-                          c.Price == sourceProduct.Price && 
+                var queryProduct = from c in _productRepository.Table
+                    where c.VendorCode == sourceProduct.Article ||
+                          c.Price == sourceProduct.Price &&
                           c.FullDescription == sourceProduct.Description &&
                           c.Name == sourceProduct.Name
                     select c;
@@ -102,58 +92,23 @@ namespace Grand.Web.Services
                 if (isExistedProduct)
                 {
                     if (productResult.Length == 0 && sourceProduct.Length != 0)
+                    {
                         productResult.Length = sourceProduct.Length;
-                    // if (productResult.Weight == 0 || productResult.Height == 0 || productResult.Width == 0)
-                    // {
-                    //     productResult.Weight = Convert.ToDecimal(sourceProduct.Weight);
-                    //     productResult.Height = Convert.ToDecimal(sourceProduct.Height);
-                    //     productResult.Width = sourceProduct.Width;
-                    //     productResult.LWHMeasure = sourceProduct.LWHMeasure;
-                    //     productResult.WeightMeasure = sourceProduct.WeightMeasure;
-                    // }
-                    // if (productResult.ProductCategories.FirstOrDefault(x =>
-                    //     x.CategoryId == "5f8c2300d2ad97447818e69d") != null) 
-                    // {
-                    //     csvStringCategory += $"{productResult.Name};{productResult.VendorCode}{Environment.NewLine}";
-                    // }
-                    //
-                    // if(productResult.ProductManufacturers.FirstOrDefault(x=>
-                    //     x.ManufacturerId == "5f74f992e899bf53c402a416") != null)
-                    // {
-                    //     csvStringManufacturer += $"{productResult.Name};{productResult.VendorCode}{Environment.NewLine}";
-                    // }
-                    // continue;
-                    // if (productResult.SeName.Contains("'"))
-                    // {
-                    //     var translitedUrl = productResult.SeName.Unidecode().Replace("'", "");
-                    //     var queryUrl = from url in _urlRecordRepository.Table
-                    //         where url.Slug == productResult.SeName
-                    //         select url;
-                    //
-                    //     var urlRecord = IAsyncCursorSourceExtensions.FirstOrDefault(queryUrl);
-                    //     urlRecord.Slug = translitedUrl;
-                    //     productResult.SeName = translitedUrl;
-                    //
-                    //     await _urlRecordRepository.UpdateAsync(urlRecord);
-                         await _productRepository.UpdateAsync(productResult);
-                         updatedProduct++;
-                    // }
-                    
-                    
+                    }
+
+                    await _productRepository.UpdateAsync(productResult);
+                    updatedProduct++;
+
                     continue;
                 }
 
-                var stock = importSourceProducts.Stock
-                    .FirstOrDefault(x => x.Id == sourceProduct.Id)?.Stock;
-                
-                var product = new ProductDto 
-                {
+                var product = new ProductDto {
                     LWHMeasure = sourceProduct.LWHMeasure,
                     WeightMeasure = sourceProduct.WeightMeasure,
                     Name = sourceProduct.Name,
                     Width = sourceProduct.Width,
                     Height = Convert.ToDecimal(sourceProduct.Height),
-                    Weight =  Convert.ToDecimal(sourceProduct.Weight),
+                    Weight = Convert.ToDecimal(sourceProduct.Weight),
                     SeName = sourceProduct.Name.Replace(' ', '-').ToLower().Unidecode(),
                     VendorCode = sourceProduct.Article,
                     FullDescription = sourceProduct.Description,
@@ -179,14 +134,14 @@ namespace Grand.Web.Services
                     UseWith = sourceProduct.UseWith,
                     Analogs = sourceProduct.Analogs
                 };
-                
-                var queryCategory = from c in _categoryRepository.Table 
-                    where c.Name == sourceProduct.Category  
+
+                var queryCategory = from c in _categoryRepository.Table
+                    where c.Name == sourceProduct.Category
                     select c;
-                
+
                 var isExistedCategory = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategory) != null;
                 var categoryDto = new CategoryDto();
-                
+
                 if (!isExistedCategory)
                 {
                     categoryDto = await _mediator.Send(new AddCategoryCommand {
@@ -209,14 +164,13 @@ namespace Grand.Web.Services
                 {
                     var categoryId = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategory).Id;
                     categoryDto.Id = categoryId;
-                    product.Categories.Add(new ProductCategoryDto
-                    {
+                    product.Categories.Add(new ProductCategoryDto {
                         CategoryId = categoryId
                     });
                 }
-                
+
                 var pictureDtos = new List<PictureDto>();
-                
+
                 foreach (var image in sourceProduct.Image)
                 {
                     if (image == "") continue;
@@ -226,7 +180,7 @@ namespace Grand.Web.Services
                     {
                         continue;
                     }
-                    
+
                     pictureDtos.Add(await _mediator.Send(new AddPictureCommand {
                         PictureDto = new PictureDto {
                             SeoFilename = image,
@@ -235,27 +189,26 @@ namespace Grand.Web.Services
                         }
                     }));
                 }
-                
-                var queryManufacturer = from c in _manufacturerRepository.Table 
+
+                var queryManufacturer = from c in _manufacturerRepository.Table
                     where c.Name == sourceProduct.Brand
                     select c;
 
                 var isExistedManufacturer = IAsyncCursorSourceExtensions.FirstOrDefault(queryManufacturer) != null;
 
                 var manufacturerDto = new ManufacturerDto();
-                    
+
                 if (!isExistedManufacturer)
                 {
-                    manufacturerDto = await _mediator.Send(new AddManufacturerCommand{
+                    manufacturerDto = await _mediator.Send(new AddManufacturerCommand {
                         Model = new ManufacturerDto {
                             Name = sourceProduct.Brand,
                             Published = true,
                             ManufacturerTemplateId = "5f66096097db2b2da47b957e"
                         }
                     });
-                    
-                    product.Manufacturers.Add(new ProductManufacturerDto
-                    {
+
+                    product.Manufacturers.Add(new ProductManufacturerDto {
                         ManufacturerId = manufacturerDto.Id
                     });
                 }
@@ -263,18 +216,16 @@ namespace Grand.Web.Services
                 {
                     var manufacturerId = IAsyncCursorSourceExtensions.FirstOrDefault(queryManufacturer).Id;
                     manufacturerDto.Id = manufacturerId;
-                    product.Manufacturers.Add(new ProductManufacturerDto
-                    {
-                        ManufacturerId = manufacturerId 
+                    product.Manufacturers.Add(new ProductManufacturerDto {
+                        ManufacturerId = manufacturerId
                     });
                 }
-                
+
                 var productDto = await _mediator.Send(
-                    new AddProductCommand 
-                    {
+                    new AddProductCommand {
                         Model = product
                     });
-                
+
                 await _categoryService.InsertProductCategory(new ProductCategory {
                     CategoryId = categoryDto.Id,
                     ProductId = productDto.Id,
@@ -287,13 +238,14 @@ namespace Grand.Web.Services
                 {
                     productExample = (ProductDto)product.Clone();
                     var exampleCategoryName = "Образцы";
-                    var queryCategoryExample = from c in _categoryRepository.Table 
+                    var queryCategoryExample = from c in _categoryRepository.Table
                         where c.Name == exampleCategoryName
                         select c;
-                
-                    var isExistedCategoryExample = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategoryExample) != null;
+
+                    var isExistedCategoryExample =
+                        IAsyncCursorSourceExtensions.FirstOrDefault(queryCategoryExample) != null;
                     var categoryDtoExample = new CategoryDto();
-                
+
                     if (!isExistedCategoryExample)
                     {
                         categoryDtoExample = await _mediator.Send(new AddCategoryCommand {
@@ -319,37 +271,36 @@ namespace Grand.Web.Services
                     {
                         var categoryId = IAsyncCursorSourceExtensions.FirstOrDefault(queryCategoryExample).Id;
                         categoryDtoExample.Id = categoryId;
-                        productExample.Categories.Add(new ProductCategoryDto
-                        {
+                        productExample.Categories.Add(new ProductCategoryDto {
                             CategoryId = categoryId
                         });
                     }
-                    
+
                     productDtoExample = await _mediator.Send(
-                        new AddProductCommand 
-                        {
+                        new AddProductCommand {
                             Model = productExample
                         });
-                    
+
                     await _categoryService.InsertProductCategory(new ProductCategory {
                         CategoryId = categoryDtoExample.Id,
                         ProductId = productDtoExample.Id,
                         IsFeaturedProduct = true
                     });
                 }
+
                 await _manufacturerService.InsertProductManufacturer(new ProductManufacturer {
                     ManufacturerId = manufacturerDto.Id,
                     ProductId = productDto.Id,
                     IsFeaturedProduct = true
                 });
-                
+
                 foreach (var item in pictureDtos)
                 {
                     product.Pictures.Add(new ProductPictureDto {
                         MimeType = item.MimeType,
                         PictureId = item.Id
                     });
-                    
+
                     await _productService.InsertProductPicture(new ProductPicture {
                         PictureId = item.Id,
                         ProductId = productDto.Id
@@ -361,7 +312,7 @@ namespace Grand.Web.Services
                             MimeType = item.MimeType,
                             PictureId = item.Id
                         });
-                    
+
                         await _productService.InsertProductPicture(new ProductPicture {
                             PictureId = item.Id,
                             ProductId = productDtoExample.Id
@@ -370,18 +321,15 @@ namespace Grand.Web.Services
                         _productDtos.Add(productDtoExample);
                     }
                 }
-                
+
                 _productDtos.Add(productDto);
-                
+
                 await _logger.InsertLog(LogLevel.Information, $"Добавлен товар №{productQty}");
                 productQty++;
             }
 
             await _logger.InsertLog(LogLevel.Information, updatedProduct.ToString());
-            
-            // await File.WriteAllTextAsync(@"C:\projects\Gaudi\ProductsWithoutCategories.csv", csvStringCategory);
-            // await File.WriteAllTextAsync(@"C:\projects\Gaudi\ProductsWithoutManufacturers.csv", csvStringManufacturer);
-              return _productDtos;
+            return _productDtos;
         }
     }
 }

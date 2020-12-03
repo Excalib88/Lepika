@@ -23,7 +23,7 @@ namespace Grand.Web.Models.Catalog
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string SeName { get; set; }
-        public ProductType ProductType { get; set; }
+        public ProductType ProductType { get; set; } = ProductType.SimpleProduct;
         public bool MarkAsNew { get; set; }
         public string Sku { get; set; }
         public string Flag { get; set; }

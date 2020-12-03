@@ -269,7 +269,7 @@
                 @Html.Raw(Model.ShortDescription)
             </div>
             <div class="buttons btn-group">
-                @if (!Model.ProductPrice.DisableWishlistButton && Model.ProductType == ProductType.SimpleProduct)
+                @if (!Model.ProductPrice.DisableWishlistButton)// && Model.ProductType == ProductType.SimpleProduct)
                 {
                     <button type="button" data-toggle="title" title="@T("ShoppingCart.AddToWishlist")" class="btn btn-secondary" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink', '@Model.ShowQty', '@Model.Id');return false;">
                         <span class="mdi mdi-heart-outline">
